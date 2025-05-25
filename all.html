@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ALL Report</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #121212;
+      color: #fff;
+      padding: 40px 20px;
+      margin: 0;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      color: #00e5ff;
+      text-shadow: 0 0 8px #00e5ff88;
+      margin: 60px 0 20px;
+    }
+
+    .chart-container {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto 60px;
+      background: #1e1e1e;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(0, 229, 255, 0.1);
+    }
+
+    canvas {
+      max-width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>PHONE PROFIT (Jan - Dec)</h2>
+  <div class="chart-container">
+    <canvas id="phoneChart"></canvas>
+  </div>
+
+  <h2>SALES ACCESSORIES PROFIT (Jan - Apr)</h2>
+  <div class="chart-container">
+    <canvas id="salesChart"></canvas>
+  </div>
+
+  <h2>REPAIR PROFIT (Jan - Apr)</h2>
+  <div class="chart-container">
+    <canvas id="repairChart"></canvas>
+  </div>
+
+  <h2>EXPENSES (Jan - Apr)</h2>
+  <div class="chart-container">
+    <canvas id="expansesChart"></canvas>
+  </div>
+
+  <script>
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const p = [268704, 189099, 252362, 193864, 0, 0, 0, 0, 0, 0, 0, 0];
+    const s = [18926, 16805, 13220, 23060, 0, 0, 0, 0, 0, 0, 0, 0];
+    const r = [160, 21785, 15450, 25840, 0, 0, 0, 0, 0, 0, 0, 0];
+    const e = [281051, 287576, 319452, 236909, 0, 0, 0, 0, 0, 0, 0, 0];
+
+    const baseOptions = {
+      responsive: true,
+      plugins: {
+        legend: {
+          labels: { color: '#ffffffcc' }
+        },
+        title: {
+          display: false
+        }
+      },
+      scales: {
+        x: {
+          ticks: { color: '#ccc' },
+          grid: { color: '#333' }
+        },
+        y: {
+          beginAtZero: true,
+          ticks: { color: '#ccc' },
+          grid: { color: '#333' }
+        }
+      }
+    };
+
+    function getGradient(ctx, color1, color2) {
+      const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+      gradient.addColorStop(0, color1);
+      gradient.addColorStop(1, color2);
+      return gradient;
+    }
+
+    function createBarChart(id, label, data, color1, color2) {
+      const ctx = document.getElementById(id).getContext('2d');
+      const gradient = getGradient(ctx, color1, color2);
+      let delayed;
+
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: months,
+          datasets: [{
+            label: label,
+            data: data,
+            backgroundColor: gradient,
+            borderRadius: 8
+          }]
+        },
+        options: {
+          ...baseOptions,
+          animation: {
+            onComplete: () => { delayed = true; },
+            delay: (context) => {
+              let delay = 0;
+              if (context.type === 'data' && context.mode === 'default' && !delayed) {
+                delay = context.dataIndex * 200;
+              }
+              return delay;
+            },
+            duration: 1000,
+            easing: 'easeOutQuart'
+          }
+        }
+      });
+    }
+
+    createBarChart('phoneChart', 'Phone Profit', p, '#66bb6a', '#43a047');
+    createBarChart('salesChart', 'Sales Accessories Profit', s, '#64b5f6', '#1e88e5');
+    createBarChart('repairChart', 'Repair Profit', r, '#f48fb1', '#e91e63');
+    createBarChart('expansesChart', 'Expenses', e, '#ce93d8', '#ab47bc');
+  </script>
+
+</body>
+</html>

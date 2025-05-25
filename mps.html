@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Text Viewer</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 1em;
+      font-family: 'Courier New', monospace;
+      background: #f4f4f4;
+      color: #111; /* dark black for better contrast */
+    }
+
+    #controls {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: white;
+      padding: 6px 10px;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      z-index: 1000;
+    }
+
+    button {
+      padding: 6px 12px;
+      margin: 0 4px;
+      font-size: 14px;
+      cursor: pointer;
+      background-color: #111;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #333;
+    }
+
+    #content {
+      white-space: pre-wrap;
+      font-size: 16px;
+      line-height: 1.6;
+      padding-top: 4em;
+      font-feature-settings: "tnum"; /* enable tabular numbers if supported */
+      font-variant-numeric: tabular-nums;
+    }
+
+    h5 {
+      font-weight: bold;
+      font-family: monospace;
+      color: #000;
+      margin-left: 1em;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="controls">
+    <button onclick="zoomIn()">Zoom In</button>
+    <button onclick="zoomOut()">Zoom Out</button>
+    <button onclick="resetZoom()">Reset</button>
+  </div>
+
+  <div id="content">
+
+<!-- Paste your .txt content between these lines -->
+<h1> SALE ACCESSORIES </h1>
+<h3>
++------------+---------------------------+---------+---------+------+---------+--------------+
+| DATE       | NAME                      | AXIS    | ICICI   | CASH | P_PRICE | TOTAL_PROFIT |
++------------+---------------------------+---------+---------+------+---------+--------------+
+| 2025-03-01 | PORTRONIC CABLE           | 0.00    | 0.00    | 400  | 70      | 330          |
+| 2025-03-02 | 20 WATT ADAPTER           | 0.00    | 0.00    | 1000 | 220     | 780          |
+| 2025-03-03 | XIAOMI 33 WATT ADAPTER    | 0.00    | 0.00    | 1000 | 550     | 450          |
+| 2025-03-05 | 20 WATT ADAPTOR AND CABLE | 0.00    | 0.00    | 380  | 380     | 0            |
+| 2025-03-04 | TEMP                      | 100.00  | 0.00    | 0    | 0       | 100          |
+| 2025-03-06 | 15 W QUICK CHARGER        | 500.00  | 0.00    | 0    | 100     | 400          |
+| 2025-03-07 | COVER & TEMP              | 0.00    | 0.00    | 1000 | 200     | 800          |
+| 2025-03-08 | CAR POWER 30              | 600.00  | 0.00    | 0    | 100     | 500          |
+| 2025-03-08 | TEMP                      | 170.00  | 0.00    | 0    | 60      | 110          |
+| 2025-03-08 | TEMP                      | 150.00  | 0.00    | 0    | 50      | 100          |
+| 2025-03-10 | PLAY USB                  | 0.00    | 0.00    | 300  | 60      | 240          |
+| 2025-03-12 | TEMP                      | 0.00    | 0.00    | 500  | 80      | 420          |
+| 2025-03-15 | TEMP                      | 300.00  | 0.00    | 0    | 60      | 240          |
+| 2025-03-16 | 25W ADAPTER AND CABLE     | 0.00    | 3000.00 | 0    | 350     | 2650         |
+| 2025-03-17 | SPIGEN COVER              | 0.00    | 0.00    | 700  | 140     | 560          |
+| 2025-03-17 | TEMP                      | 0.00    | 0.00    | 500  | 60      | 440          |
+| 2025-03-17 | CAMERA RING               | 0.00    | 0.00    | 100  | 30      | 70           |
+| 2025-03-18 | TEMP                      | 500.00  | 0.00    | 0    | 100     | 400          |
+| 2025-03-20 | 20 WATT ADAPTER           | 0.00    | 0.00    | 1400 | 220     | 1180         |
+| 2025-03-22 | TEMP                      | 250.00  | 0.00    | 0    | 50      | 200          |
+| 2025-03-20 | TEMP                      | 200.00  | 0.00    | 0    | 50      | 150          |
+| 2025-03-24 | TEMP                      | 400.00  | 0.00    | 0    | 50      | 350          |
+| 2025-03-23 | TEMP                      | 350.00  | 0.00    | 0    | 50      | 300          |
+| 2025-03-25 | XIAOMI CHARGER            | 0.00    | 0.00    | 1200 | 200     | 1000         |
+| 2025-03-27 | GOOGLE CHARGER            | 1000.00 | 0.00    | 0    | 250     | 750          |
+| 2025-03-27 | TEMP                      | 0.00    | 0.00    | 300  | 50      | 250          |
+| 2025-03-27 | TEMP                      | 0.00    | 0.00    | 300  | 50      | 250          |
+| 2025-03-29 | TEMP                      | 150.00  | 0.00    | 0    | 50      | 100          |
+| 2025-03-29 | TEMP                      | 150.00  | 0.00    | 0    | 50      | 100          |
++------------+---------------------------+---------+---------+------+---------+--------------+
+<!-- (your full table content goes here) -->
+  </div>
+
+  <h2>TOTAL PURCHASE = 3,680</h2>
+  <h2>TOTAL SALE = 16,900</h2>
+  <h2>PROFIT = 13,220</h2>
+
+  <script>
+    let fontSize = 16;
+
+    function zoomIn() {
+      fontSize += 2;
+      document.getElementById('content').style.fontSize = fontSize + 'px';
+    }
+
+    function zoomOut() {
+      if (fontSize > 8) {
+        fontSize -= 2;
+        document.getElementById('content').style.fontSize = fontSize + 'px';
+      }
+    }
+
+    function resetZoom() {
+      fontSize = 16;
+      document.getElementById('content').style.fontSize = fontSize + 'px';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Text Viewer</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 1em;
+      font-family: 'Courier New', monospace;
+      background: #f4f4f4;
+      color: #111; /* dark black for better contrast */
+    }
+
+    #controls {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: white;
+      padding: 6px 10px;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      z-index: 1000;
+    }
+
+    button {
+      padding: 6px 12px;
+      margin: 0 4px;
+      font-size: 14px;
+      cursor: pointer;
+      background-color: #111;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #333;
+    }
+
+    #content {
+      white-space: pre-wrap;
+      font-size: 16px;
+      line-height: 1.6;
+      padding-top: 4em;
+      font-feature-settings: "tnum"; /* enable tabular numbers if supported */
+      font-variant-numeric: tabular-nums;
+    }
+
+    h5 {
+      font-weight: bold;
+      font-family: monospace;
+      color: #000;
+      margin-left: 1em;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="controls">
+    <button onclick="zoomIn()">Zoom In</button>
+    <button onclick="zoomOut()">Zoom Out</button>
+    <button onclick="resetZoom()">Reset</button>
+  </div>
+
+  <div id="content">
+
+<!-- Paste your .txt content between these lines -->
+<h1> PARTS </h1>
+<h3>
++------------+-----------------------------------+------+-------+------+-------+
+| DATE       | NAME                              | AXIS | ICICI | CASH | TOTAL |
++------------+-----------------------------------+------+-------+------+-------+
+| 2025-01-06 | REPAIR PARTS                      | 2500 | 0     | 0    | 2600  |
+| 2025-01-12 | REPAIR PARTS                      | 0    | 0     | 1400 | 1400  |
+| 2025-01-19 | REPAIR PARTS                      | 0    | 0     | 800  | 800   |
+| 2025-01-22 | REPAIR PARTS                      | 800  | 0     | 0    | 800   |
+| 2025-01-22 | REPAIR PARTS                      | 800  | 0     | 0    | 800   |
+| 2025-01-23 | REPAIR PARTS                      | 200  | 0     | 0    | 200   |
+| 2025-01-25 | REPAIR PARTS                      | 5000 | 0     | 0    | 5000  |
+| 2025-01-25 | REPAIR PARTS                      | 2550 | 0     | 0    | 2550  |
+| 2025-01-29 | REHMAT REPAIR PARTS               | 1650 | 0     | 0    | 1650  |
+| 2025-01-11 | IPHONE 12 REPAIR PARTS 1175       | 0    | 0     | 1000 | 1000  |
+| 2025-01-18 | IPHONE 8 PARTS 1199               | 0    | 0     | 2000 | 2000  |
+| 2025-01-30 | REHMAT REPAIR PARTS               | 550  | 0     | 0    | 550   |
+| 2025-01-30 | REHMAT REPAIR PARTS               | 600  | 0     | 0    | 600   |
+| 2025-01-01 | IPHONE 12 PRO FAULTY RECOVERY     | 0    | 0     | 2000 | 2000  |
+| 2025-01-19 | IPHONE 13 RECOVER                 | 0    | 0     | 5800 | 5800  |
+| 2025-01-01 | IPHONE 12 PRO MAX FAULTY RECOVERY | 0    | 0     | 2000 | 2000  |
+| 2025-01-30 | GLASS 14 PRO MAX                  | 0    | 0     | 350  | 350   |
++------------+-----------------------------------+------+-------+------+-------+
+<!-- (your full table content goes here) -->
+  </div>
+
+  <h2>TOTAL = 30,100</h2>
+
+  <script>
+    let fontSize = 16;
+
+    function zoomIn() {
+      fontSize += 2;
+      document.getElementById('content').style.fontSize = fontSize + 'px';
+    }
+
+    function zoomOut() {
+      if (fontSize > 8) {
+        fontSize -= 2;
+        document.getElementById('content').style.fontSize = fontSize + 'px';
+      }
+    }
+
+    function resetZoom() {
+      fontSize = 16;
+      document.getElementById('content').style.fontSize = fontSize + 'px';
+    }
+  </script>
+</body>
+</html>

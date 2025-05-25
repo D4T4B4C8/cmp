@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Text Viewer</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 1em;
+      font-family: 'Courier New', monospace;
+      background: #f4f4f4;
+      color: #111; /* dark black for better contrast */
+    }
+
+    #controls {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: white;
+      padding: 6px 10px;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      z-index: 1000;
+    }
+
+    button {
+      padding: 6px 12px;
+      margin: 0 4px;
+      font-size: 14px;
+      cursor: pointer;
+      background-color: #111;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #333;
+    }
+
+    #content {
+      white-space: pre-wrap;
+      font-size: 16px;
+      line-height: 1.6;
+      padding-top: 4em;
+      font-feature-settings: "tnum"; /* enable tabular numbers if supported */
+      font-variant-numeric: tabular-nums;
+    }
+
+    h5 {
+      font-weight: bold;
+      font-family: monospace;
+      color: #000;
+      margin-left: 1em;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="controls">
+    <button onclick="zoomIn()">Zoom In</button>
+    <button onclick="zoomOut()">Zoom Out</button>
+    <button onclick="resetZoom()">Reset</button>
+  </div>
+
+  <div id="content">
+
+<!-- Paste your .txt content between these lines -->
+<h1> PHONE PROFIT </h1>
+<h3>
++------+----------+-----------------------------+-------------+-----------------+---------------+
+| S_NO | ORDER_ID | NAME                        | SALE_AMOUNT | PURCHASE_AMOUNT | PROFIT_AMOUNT |
++------+----------+-----------------------------+-------------+-----------------+---------------+
+|    1 |     1315 | CMF BY NOTHING PHONE 1      |    10500.00 |         9628.00 |        872.00 |
+|    2 |     1218 | IPHONE 11                   |    15500.00 |        16736.00 |      -1236.00 |
+|    3 |     1337 | IPHONE 11                   |    12000.00 |        10000.00 |       2000.00 |
+|    4 |     1227 | IPHONE 11                   |    16000.00 |        16128.00 |       -128.00 |
+|    5 |     1283 | IPHONE 11                   |    11500.00 |         8000.00 |       3500.00 |
+|    6 |     1215 | IPHONE 11                   |    16000.00 |        15000.00 |       1000.00 |
+|    7 |     1350 | IPHONE 11                   |    16000.00 |        14499.00 |       1501.00 |
+|    8 |     1302 | IPHONE 11                   |    13000.00 |        12000.00 |       1000.00 |
+|    9 |     1259 | IPHONE 12                   |    22500.00 |        19200.00 |       3300.00 |
+|   10 |     1306 | IPHONE 12                   |    19000.00 |        17000.00 |       2000.00 |
+|   11 |     1319 | IPHONE 12                   |    19500.00 |        13450.00 |       6050.00 |
+|   12 |     1151 | IPHONE 12 MINI              |    17500.00 |        16750.00 |        750.00 |
+|   13 |     1356 | IPHONE 12 MINI              |    17400.00 |        13500.00 |       3900.00 |
+|   14 |      432 | IPHONE 12 MINI              |    16000.00 |        12000.00 |       4000.00 |
+|   15 |     1249 | IPHONE 12 PRO               |    27000.00 |        25000.00 |       2000.00 |
+|   16 |     1157 | IPHONE 12 PRO               |    26500.00 |        16740.00 |       9760.00 |
+|   17 |     1276 | IPHONE 12 PRO               |    34700.00 |        28000.00 |       6700.00 |
+|   18 |     1288 | IPHONE 12 PRO               |    28500.00 |        27000.00 |       1500.00 |
+|   19 |     1299 | IPHONE 12 PRO MAX           |    21300.00 |        18984.00 |       2316.00 |
+|   20 |     1263 | IPHONE 12 PRO MAX [LUCKNOW] |    27000.00 |        18670.00 |       8330.00 |
+|   21 |     1329 | IPHONE 13                   |    23000.00 |        15000.00 |       8000.00 |
+|   22 |     1282 | IPHONE 13                   |    24000.00 |        22000.00 |       2000.00 |
+|   23 |     1342 | IPHONE 13                   |    22000.00 |        18000.00 |       4000.00 |
+|   24 |     1252 | IPHONE 13                   |    28000.00 |        27000.00 |       1000.00 |
+|   25 |     1206 | IPHONE 13                   |    30000.00 |        27505.00 |       2495.00 |
+|   26 |     1307 | IPHONE 13                   |    30500.00 |        25000.00 |       5500.00 |
+|   27 |     1349 | IPHONE 13                   |    35000.00 |        32000.00 |       3000.00 |
+|   28 |     1365 | IPHONE 13                   |    24000.00 |        23000.00 |       1000.00 |
+|   29 |     1265 | IPHONE 13 [LUCKNOW]         |    26000.00 |        25000.00 |       1000.00 |
+|   30 |     1318 | IPHONE 13 PRO               |    45000.00 |        40500.00 |       4500.00 |
+|   31 |     1320 | IPHONE 13 PRO               |    42000.00 |        38500.00 |       3500.00 |
+|   32 |     1295 | IPHONE 13 PRO               |    33000.00 |        29500.00 |       3500.00 |
+|   33 |     1260 | IPHONE 13 PRO               |    44000.00 |        41000.00 |       3000.00 |
+|   34 |     1241 | IPHONE 13 PRO               |    43000.00 |        41000.00 |       2000.00 |
+|   35 |     1089 | IPHONE 13 PRO MAX           |    47000.00 |        41500.00 |       5500.00 |
+|   36 |     1262 | IPHONE 14                   |    32500.00 |        31500.00 |       1000.00 |
+|   37 |     1287 | IPHONE 14                   |    33000.00 |        30000.00 |       3000.00 |
+|   38 |     1257 | IPHONE 14 PLUS              |    39000.00 |        35000.00 |       4000.00 |
+|   39 |     1258 | IPHONE 14 PRO               |    57000.00 |        53000.00 |       4000.00 |
+|   40 |      741 | IPHONE 14 PRO MAX           |    62000.00 |        64000.00 |      -2000.00 |
+|   41 |     1321 | IPHONE 14 PRO MAX           |    55999.00 |        53000.00 |       2999.00 |
+|   42 |     1224 | IPHONE 14 PRO MAX           |    58000.00 |        56000.00 |       2000.00 |
+|   43 |     1290 | IPHONE 15                   |    42000.00 |        39000.00 |       3000.00 |
+|   44 |     1269 | IPHONE 15 [LUCKNOW]         |    42000.00 |        39000.00 |       3000.00 |
+|   45 |     1332 | IPHONE 15 PRO               |    63500.00 |        60000.00 |       3500.00 |
+|   46 |     1256 | IPHONE 15 PRO MAX           |    74000.00 |        74000.00 |          0.00 |
+|   47 |     1330 | IPHONE 7 PLUS               |     3900.00 |         3000.00 |        900.00 |
+|   48 |     1250 | IPHONE SE 2020              |    10000.00 |         7000.00 |       3000.00 |
+|   49 |     1231 | IPHONE X                    |     9000.00 |         7000.00 |       2000.00 |
+|   50 |     1236 | IPHONE XR                   |    11000.00 |         8901.00 |       2099.00 |
+|   51 |     1223 | IPHONE XR                   |    11500.00 |        10000.00 |       1500.00 |
+|   52 |     1188 | IQOO Z5                     |     9000.00 |         8316.00 |        684.00 |
+|   53 |     1261 | MOTO G04                    |     4700.00 |         3965.00 |        735.00 |
+|   54 |     1314 | MOTO G32                    |     6000.00 |         5072.00 |        928.00 |
+|   55 |     1371 | MOTO G34                    |     7000.00 |         5382.00 |       1618.00 |
+|   56 |     1274 | MOTO G45                    |     7800.00 |         7000.00 |        800.00 |
+|   57 |     1255 | MOTO G64                    |    12000.00 |        10678.00 |       1322.00 |
+|   58 |     1281 | MOTOROLA G34                |     6000.00 |         4882.00 |       1118.00 |
+|   59 |     1238 | MOTOROLA G54                |    11000.00 |         9628.00 |       1372.00 |
+|   60 |     1270 | NOTHING 2                   |    23000.00 |        21000.00 |       2000.00 |
+|   61 |     1313 | ONEPLUS 9                   |     6000.00 |         5545.00 |        455.00 |
+|   62 |     1284 | ONEPLUS 9R                  |     8000.00 |         5300.00 |       2700.00 |
+|   63 |     1303 | ONEPLUS NORD C3 LITE        |     8000.00 |         5806.00 |       2194.00 |
+|   64 |     1341 | ONEPLUS NORD CE2            |     8000.00 |         6000.00 |       2000.00 |
+|   65 |     1327 | ONEPLUS NORD CE4            |    15000.00 |        13500.00 |       1500.00 |
+|   66 |      901 | OPPO A54                    |     4200.00 |         2000.00 |       2200.00 |
+|   67 |     1294 | OPPO K12X                   |     8500.00 |         7000.00 |       1500.00 |
+|   68 |     1333 | OPPO RENO 12                |    19000.00 |        17000.00 |       2000.00 |
+|   69 |     1273 | POCO X6 NEO                 |     9500.00 |         7500.00 |       2000.00 |
+|   70 |     1300 | REALME 10 PRO PLUS          |    13500.00 |        11740.00 |       1760.00 |
+|   71 |     1277 | REALME 12X                  |     8000.00 |         9154.00 |      -1154.00 |
+|   72 |     1312 | REALME 9 PRO PLUS           |     6500.00 |         4445.00 |       2055.00 |
+|   73 |     1279 | SAMSUNG A04                 |     4500.00 |         4000.00 |        500.00 |
+|   74 |     1268 | SAMSUNG A04                 |     5500.00 |         2921.00 |       2579.00 |
+|   75 |     1272 | SAMSUNG A14                 |     5500.00 |         5000.00 |        500.00 |
+|   76 |     1267 | SAMSUNG A35                 |    15500.00 |        14000.00 |       1500.00 |
+|   77 |     1324 | SAMSUNG F05                 |     4500.00 |         4000.00 |        500.00 |
+|   78 |     1285 | SAMSUNG GALAXY A14          |     6300.00 |         5182.00 |       1118.00 |
+|   79 |     1271 | SAMSUNG M14                 |     5000.00 |         4355.00 |        645.00 |
+|   80 |      941 | SAMSUNG M34                 |     9000.00 |         8700.00 |        300.00 |
+|   81 |     1247 | SAMSUNG NOTE 20 ULTRA       |    12500.00 |        12000.00 |        500.00 |
+|   82 |     1187 | SAMSUNG S21 ULTRA           |    26500.00 |        25000.00 |       1500.00 |
+|   83 |     1347 | SAMSUNG S22                 |    15000.00 |        12438.00 |       2562.00 |
+|   84 |     1293 | SAMSUNG S22 ULTRA           |    36000.00 |        32000.00 |       4000.00 |
++------+----------+-----------------------------+-------------+-----------------+---------------+
++------------+------------+-----------+
+| TOTAL_SALE | TOTAL_PUR  | PROFIT    |
++------------+------------+-----------+
+| 1834799.00 | 1645700.00 | 189099.00 |
++------------+------------+-----------+
+<!-- (your full table content goes here) -->
+  </div>
+
+  <h2>TOTAL_SALE = 1834799</h2>
+  <h2>TOTAL_PUR = 1645700</h2>
+  <h2>PROFIT = 189099</h2>
+
+  <script>
+    let fontSize = 16;
+
+    function zoomIn() {
+      fontSize += 2;
+      document.getElementById('content').style.fontSize = fontSize + 'px';
+    }
+
+    function zoomOut() {
+      if (fontSize > 8) {
+        fontSize -= 2;
+        document.getElementById('content').style.fontSize = fontSize + 'px';
+      }
+    }
+
+    function resetZoom() {
+      fontSize = 16;
+      document.getElementById('content').style.fontSize = fontSize + 'px';
+    }
+  </script>
+</body>
+</html>

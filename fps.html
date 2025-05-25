@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Text Viewer</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 1em;
+      font-family: 'Courier New', monospace;
+      background: #f4f4f4;
+      color: #111; /* dark black for better contrast */
+    }
+
+    #controls {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: white;
+      padding: 6px 10px;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      z-index: 1000;
+    }
+
+    button {
+      padding: 6px 12px;
+      margin: 0 4px;
+      font-size: 14px;
+      cursor: pointer;
+      background-color: #111;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #333;
+    }
+
+    #content {
+      white-space: pre-wrap;
+      font-size: 16px;
+      line-height: 1.6;
+      padding-top: 4em;
+      font-feature-settings: "tnum"; /* enable tabular numbers if supported */
+      font-variant-numeric: tabular-nums;
+    }
+
+    h5 {
+      font-weight: bold;
+      font-family: monospace;
+      color: #000;
+      margin-left: 1em;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="controls">
+    <button onclick="zoomIn()">Zoom In</button>
+    <button onclick="zoomOut()">Zoom Out</button>
+    <button onclick="resetZoom()">Reset</button>
+  </div>
+
+  <div id="content">
+
+<!-- Paste your .txt content between these lines -->
+<h1> SALE ACCESSORIES </h1>
+<h3>
++------------+-------------------+---------+---------+------+---------+--------------+
+| DATE       | NAME              | AXIS    | ICICI   | CASH | P_PRICE | TOTAL_PROFIT |
++------------+-------------------+---------+---------+------+---------+--------------+
+| 2025-02-01 | TEMPERED          | 0.00    | 0.00    | 200  | 60      | 140          |
+| 2025-02-02 | TEMPERED          | 0.00    | 0.00    | 250  | 50      | 200          |
+| 2025-02-02 | TEMPERED          | 0.00    | 0.00    | 250  | 50      | 200          |
+| 2025-02-02 | POWERBANK         | 0.00    | 0.00    | 2000 | 1050    | 950          |
+| 2025-02-02 | CABLE             | 0.00    | 0.00    | 500  | 150     | 350          |
+| 2025-02-10 | CHARGER           | 2000.00 | 0.00    | 0    | 470     | 1530         |
+| 2025-02-09 | CABLE             | 500.00  | 0.00    | 0    | 70      | 430          |
+| 2025-02-10 | APPLE USB C       | 0.00    | 1200.00 | 0    | 250     | 950          |
+| 2025-02-09 | 20 WATT ADAPTER   | 700.00  | 0.00    | 0    | 220     | 480          |
+| 2025-02-08 | PLAY PODS         | 0.00    | 0.00    | 1200 | 1000    | 200          |
+| 2025-02-13 | TEMP              | 0.00    | 0.00    | 400  | 50      | 350          |
+| 2025-02-13 | CABLE             | 200.00  | 0.00    | 0    | 50      | 150          |
+| 2025-02-13 | CHARGER           | 0.00    | 0.00    | 1000 | 500     | 500          |
+| 2025-02-15 | TEMP              | 500.00  | 0.00    | 0    | 55      | 445          |
+| 2025-02-15 | COVER             | 0.00    | 0.00    | 500  | 120     | 380          |
+| 2025-02-17 | TYPE C CABLE      | 0.00    | 0.00    | 500  | 80      | 420          |
+| 2025-02-17 | ADAPTER           | 500.00  | 0.00    | 0    | 220     | 280          |
+| 2025-02-21 | CABLE             | 1000.00 | 0.00    | 0    | 470     | 530          |
+| 2025-02-20 | COVER             | 300.00  | 0.00    | 0    | 60      | 240          |
+| 2025-02-20 | ADAPTOR           | 0.00    | 0.00    | 500  | 230     | 270          |
+| 2025-02-21 | ADAPTER           | 0.00    | 0.00    | 1500 | 220     | 1280         |
+| 2025-02-22 | PORTRONIC CABLE   | 0.00    | 0.00    | 350  | 70      | 280          |
+| 2025-02-22 | PORTRONIC CHARGER | 100.00  | 0.00    | 300  | 110     | 290          |
+| 2025-02-22 | SAMSUNG CABLE     | 0.00    | 0.00    | 350  | 190     | 160          |
+| 2025-02-25 | POWER ADAPTER     | 1400.00 | 0.00    | 0    | 270     | 1130         |
+| 2025-02-25 | IPHONE DATA CABLE | 0.00    | 0.00    | 900  | 250     | 650          |
+| 2025-02-11 | TEMP              | 300.00  | 0.00    | 0    | 55      | 245          |
+| 2025-02-22 | TEMP              | 100.00  | 0.00    | 0    | 50      | 50           |
+| 2025-02-26 | APPLE UBB ADAPTER | 0.00    | 0.00    | 1000 | 220     | 780          |
+| 2025-02-25 | DATA CABLE        | 300.00  | 0.00    | 0    | 250     | 50           |
+| 2025-02-26 | DATA CABLE        | 300.00  | 0.00    | 0    | 250     | 50           |
+| 2025-02-26 | LEATHER COVER     | 1000.00 | 0.00    | 0    | 300     | 700          |
+| 2025-02-26 | TRANSPARENT COVER | 500.00  | 0.00    | 0    | 100     | 400          |
+| 2025-02-26 | TEMP              | 500.00  | 0.00    | 0    | 55      | 445          |
+| 2025-02-27 | CHARGER           | 1000.00 | 0.00    | 0    | 250     | 750          |
+| 2025-02-28 | DATA CABLE        | 0.00    | 0.00    | 350  | 100     | 250          |
+| 2025-02-23 | TEMP              | 350.00  | 0.00    | 0    | 50      | 300          |
++------------+-------------------+---------+---------+------+---------+--------------+
+<!-- (your full table content goes here) -->
+  </div>
+
+  <h2>TOTAL PURCHASE = 7995</h2>
+  <h2>TOTAL SALE = 24800</h2>
+  <h2>PROFIT = 16805</h2>
+
+  <script>
+    let fontSize = 16;
+
+    function zoomIn() {
+      fontSize += 2;
+      document.getElementById('content').style.fontSize = fontSize + 'px';
+    }
+
+    function zoomOut() {
+      if (fontSize > 8) {
+        fontSize -= 2;
+        document.getElementById('content').style.fontSize = fontSize + 'px';
+      }
+    }
+
+    function resetZoom() {
+      fontSize = 16;
+      document.getElementById('content').style.fontSize = fontSize + 'px';
+    }
+  </script>
+</body>
+</html>

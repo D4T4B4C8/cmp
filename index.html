@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CASH MY PHONES</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #000;
+      color: white;
+      overflow: hidden;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    .center-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      z-index: 2;
+      position: relative;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    h1 {
+      font-size: 3rem;
+      color: #ffffff;
+      text-shadow: 0 0 10px #00ffff, 0 0 20px #007bff;
+      margin-bottom: 50px;
+      animation: fadeIn 1s ease-out forwards;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      width: 100%;
+      max-width: 800px;
+    }
+
+    button {
+      padding: 15px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #007BFF, #00FFFF);
+      color: white;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0, 255, 255, 0.2);
+    }
+
+    button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 255, 255, 0.4);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .emoji-rain {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .emoji {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      animation: fall linear infinite;
+      opacity: 0.9;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="center-wrapper">
+    <h1>CASH MY PHONES</h1>
+    <div class="buttons">
+      <button onclick="handleClick('PHONE PURCHASE & SALES')">PHONE PURCHASE & SALES</button>
+      <button onclick="handleClick('ALL')">ALL</button>
+      <button onclick="handleClick('PROFIT')">PROFIT</button>
+      <button onclick="handleClick('FULL_LIST')">FULL LIST</button>
+    </div>
+  </div>
+
+  <div class="emoji-rain" id="emojiRain"></div>
+
+  <script>
+    const routes = {
+      'PHONE PURCHASE & SALES': 'phone.html',
+      'ALL': 'all.html',
+      'PROFIT': 'profit.html',
+      'FULL_LIST': 'list.html'
+    };
+
+    function handleClick(action) {
+      const url = routes[action];
+      if (url) {
+        window.location.href = url;
+      } else {
+        alert("Unknown action: " + action);
+      }
+    }
+
+    const emojis = [
+      'apple.png',        // Make sure these images exist in the same folder
+      'apple.png',
+      'oneplus.png'
+    ];
+
+    function createEmoji() {
+      const emoji = document.createElement('img');
+      emoji.src = emojis[Math.floor(Math.random() * emojis.length)];
+      emoji.className = 'emoji';
+      emoji.style.left = Math.random() * 100 + 'vw';
+      emoji.style.animationDuration = 3 + Math.random() * 5 + 's';
+      emoji.style.transform = `scale(${0.5 + Math.random()})`;
+
+      document.getElementById('emojiRain').appendChild(emoji);
+
+      setTimeout(() => {
+        emoji.remove();
+      }, 9000);
+    }
+
+    setInterval(createEmoji, 300);
+  </script>
+
+</body>
+</html>

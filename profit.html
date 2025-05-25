@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PROFIT & LOSS Report</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #121212;
+      color: #ffffff;
+      text-align: center;
+      margin: 0;
+      padding: 40px 20px;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      color: #00e5ff;
+      text-shadow: 0 0 8px #00e5ff88;
+      margin-bottom: 40px;
+    }
+
+    .chart-container {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto 60px;
+      background-color: #1e1e1e;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(0, 229, 255, 0.1);
+    }
+
+    canvas {
+      max-width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>PROFIT & LOSS Analysis (Jan - Dec)</h2>
+
+  <div class="chart-container">
+    <canvas id="profitLossLineChart"></canvas>
+  </div>
+
+  <script>
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const amounts = [6938, -59887, -38420, 5857, 0, 0, 0, 0, 0, 0, 0, 0];
+  const monthLinks = [
+    'jan.html', 'feb.html', 'mar.html', 'apr.html',
+    'may.html', 'jun.html', 'jul.html', 'aug.html',
+    'sep.html', 'oct.html', 'nov.html', 'dec.html'
+  ];
+
+  let delayed;
+
+  new Chart(document.getElementById('profitLossLineChart'), {
+    type: 'line',
+    data: {
+      labels: months,
+      datasets: [{
+        label: 'Profit/Loss Amount',
+        data: amounts,
+        fill: false,
+        borderColor: '#00e5ff',
+        backgroundColor: '#00e5ff',
+        tension: 0.4,
+        pointBackgroundColor: '#ffffff',
+        pointBorderColor: '#00e5ff',
+        pointRadius: 5,
+        pointHoverRadius: 8,
+      }]
+    },
+    options: {
+      responsive: true,
+      animation: {
+        onComplete: () => { delayed = true; },
+        delay: (context) => {
+          let delay = 0;
+          if (context.type === 'data' && context.mode === 'default' && !delayed) {
+            delay = context.dataIndex * 300; // ⏱️ Delay per point
+          }
+          return delay;
+        }
+      },
+      elements: {
+        line: {
+          borderWidth: 3
+        }
+      },
+      plugins: {
+        title: {
+          display: true,
+          text: 'PROFIT & LOSS Amount per Month',
+          color: '#ffffff',
+          font: { size: 18 }
+        },
+        legend: {
+          labels: { color: '#ccc' }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: false,
+          ticks: { color: '#ccc' },
+          grid: { color: '#333' },
+          title: {
+            display: true,
+            text: 'Amount',
+            color: '#ccc'
+          }
+        },
+        x: {
+          ticks: { color: '#ccc' },
+          grid: { color: '#333' },
+          title: {
+            display: true,
+            text: 'Month',
+            color: '#ccc'
+          }
+        }
+      },
+      onClick: (event, elements) => {
+        if (elements.length > 0) {
+          const index = elements[0].index;
+          const targetPage = monthLinks[index];
+          if (targetPage) {
+            window.location.href = targetPage;
+          }
+        }
+      }
+    }
+  });
+</script>
+
+</body>
+</html>
