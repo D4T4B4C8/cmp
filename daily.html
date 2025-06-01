@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title> Daily Phone Report</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500&display=swap');
+
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: 'Baloo 2', cursive;
+      background: linear-gradient(135deg, #fceabb, #f8b500);
+      color: #333;
+      animation: fadeIn 1s ease;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      text-align: center;
+      margin: 20px 0 30px;
+      font-weight: bold;
+    }
+
+    .top-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-bottom: 15px;
+    }
+
+    .top-table {
+      width: 100%;
+      max-width: 850px;
+      margin: 0 auto 30px;
+      border-collapse: collapse;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 3px 3px 15px rgba(0,0,0,0.1);
+      animation: slideIn 0.6s ease;
+    }
+
+    .top-table th, .top-table td {
+      padding: 15px;
+      text-align: center;
+      font-size: 1.1rem;
+      border-bottom: 1px solid #eee;
+    }
+
+    .top-table th {
+      background: #ffe082;
+    }
+
+    .top-table td {
+      background: #fffde7;
+    }
+
+    .report-container {
+      max-width: 850px;
+      margin: auto;
+    }
+
+    .report-card {
+      background: rgba(255, 255, 255, 0.9);
+      margin: 20px 0;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: fadeSlide 0.6s ease forwards;
+    }
+
+    .report-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 15px rgba(255, 204, 0, 0.4);
+    }
+
+    .report-card h2 {
+      margin: 0 0 10px;
+      font-weight: bold;
+      font-size: 1.4rem;
+    }
+
+    .report-card p {
+      margin: 5px 0;
+      font-size: 1.1rem;
+    }
+
+    .soft-blue { background: linear-gradient(135deg, #b3e5fc, #81d4fa); }
+    .soft-green { background: linear-gradient(135deg, #c8e6c9, #a5d6a7); }
+    .soft-yellow { background: linear-gradient(135deg, #fff9c4, #ffe082); }
+    .soft-pink { background: linear-gradient(135deg, #f8bbd0, #f48fb1); }
+    .soft-purple { background: linear-gradient(135deg, #e1bee7, #ce93d8); }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(-30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="top-header">
+    <div id="date">📅 Date: </div>
+  </div>
+
+  <table class="top-table">
+    <thead>
+      <tr>
+        <th>💰 CASH</th>
+        <th>🏦 ICICI</th>
+        <th>🏦 AXIS</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td id="cash"></td>
+        <td id="icici"></td>
+        <td id="axis"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="report-container">
+    <h1>📱 Daily  Report</h1>
+    <div id="report"></div>
+  </div>
+
+  <script>
+    const data = {
+      date: new Date().toLocaleDateString('en-IN'),
+      accounts: {
+        cash: '₹12,000',
+        icici: '₹8,500',
+        axis: '₹4,300'
+      },
+      purchase: {
+        total: '₹25,000',
+        items: ['iPhone XR', 'Galaxy M14']
+      },
+      sale: {
+        total: '₹30,000',
+        items: ['Redmi Note 12']
+      },
+      repair: {
+        count: 3,
+        devices: ['Realme C25', 'Vivo Y20']
+      },
+      parts: {
+        items: ['Display', 'Battery']
+      },
+      accessories: {
+        sale: '₹2,000',
+        purchase: '₹1,000'
+      }
+    };
+
+    // Top Date & Table
+    document.getElementById('date').innerText += data.date;
+    document.getElementById('cash').innerText = data.accounts.cash;
+    document.getElementById('icici').innerText = data.accounts.icici;
+    document.getElementById('axis').innerText = data.accounts.axis;
+
+    // Report Cards
+    const report = document.getElementById('report');
+
+    function createCard(title, icon, contentHTML, className) {
+      return `
+        <section class="report-card ${className}">
+          <h2>${icon} ${title}</h2>
+          ${contentHTML}
+        </section>
+      `;
+    }
+
+    const sectionsHTML = [
+      createCard('Purchase', '📦',
+        `<p><strong>Total:</strong> ${data.purchase.total}</p>
+         <p><strong>Items:</strong> ${data.purchase.items.join(', ')}</p>`,
+        'soft-blue'),
+
+      createCard('Sale', '💸',
+        `<p><strong>Total:</strong> ${data.sale.total}</p>
+         <p><strong>Items:</strong> ${data.sale.items.join(', ')}</p>`,
+        'soft-green'),
+
+      createCard('Repairs', '🛠️',
+        `<p><strong>Jobs:</strong> ${data.repair.count}</p>
+         <p><strong>Devices:</strong> ${data.repair.devices.join(', ')}</p>`,
+        'soft-yellow'),
+
+      createCard('Parts', '⚙️',
+        `<p><strong>Items:</strong> ${data.parts.items.join(', ')}</p>`,
+        'soft-pink'),
+
+      createCard('Accessories', '🎧',
+        `<p><strong>Sale:</strong> ${data.accessories.sale}</p>
+         <p><strong>Purchase:</strong> ${data.accessories.purchase}</p>`,
+        'soft-purple')
+    ];
+
+    report.innerHTML = sectionsHTML.join('');
+  </script>
+</body>
+</html>
