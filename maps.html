@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Text Viewer</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 1em;
+      font-family: 'Courier New', monospace;
+      background: #f4f4f4;
+      color: #111; /* dark black for better contrast */
+    }
+
+    #controls {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: white;
+      padding: 6px 10px;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      z-index: 1000;
+    }
+
+    button {
+      padding: 6px 12px;
+      margin: 0 4px;
+      font-size: 14px;
+      cursor: pointer;
+      background-color: #111;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #333;
+    }
+
+    #content {
+      white-space: pre-wrap;
+      font-size: 16px;
+      line-height: 1.6;
+      padding-top: 4em;
+      font-feature-settings: "tnum"; /* enable tabular numbers if supported */
+      font-variant-numeric: tabular-nums;
+    }
+
+    h5 {
+      font-weight: bold;
+      font-family: monospace;
+      color: #000;
+      margin-left: 1em;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="controls">
+    <button onclick="zoomIn()">Zoom In</button>
+    <button onclick="zoomOut()">Zoom Out</button>
+    <button onclick="resetZoom()">Reset</button>
+  </div>
+
+  <div id="content">
+
+<!-- Paste your .txt content between these lines -->
+<h1> SALE ACCESSORIES </h1>
+<h3>
++------------+-------------------------------+---------+---------+------+---------+--------------+
+| DATE       | NAME                          | AXIS    | ICICI   | CASH | P_PRICE | TOTAL_PROFIT |
++------------+-------------------------------+---------+---------+------+---------+--------------+
+| 2025-05-04 | APPLE ADAPTER                 | 0.00    | 0.00    | 1000 | 250     | 750          |
+| 2025-05-04 | ADAPTER                       | 0.00    | 0.00    | 800  | 250     | 550          |
+| 2025-05-03 | TEMP                          | 200.00  | 0.00    | 0    | 50      | 150          |
+| 2025-05-05 | USB CABLE                     | 200.00  | 0.00    | 0    | 40      | 160          |
+| 2025-05-06 | DASH MAX TYPE C               | 0.00    | 0.00    | 400  | 180     | 220          |
+| 2025-05-07 | CAR CHARGER                   | 500.00  | 0.00    | 0    | 90      | 410          |
+| 2025-05-08 | TEMP                          | 0.00    | 0.00    | 250  | 40      | 210          |
+| 2025-05-08 | APPLE USB C TO LIGHTNING      | 0.00    | 0.00    | 200  | 250     | -50          |
+| 2025-05-08 | TEMP                          | 200.00  | 0.00    | 0    | 40      | 160          |
+| 2025-05-08 | APPLE USB C TO LIGHTNING      | 800.00  | 0.00    | 0    | 250     | 550          |
+| 2025-05-09 | TEMP                          | 0.00    | 0.00    | 300  | 40      | 260          |
+| 2025-05-11 | SAMSUNG ADAPTER               | 1000.00 | 0.00    | 0    | 250     | 750          |
+| 2025-05-12 | APPLE ADAPTER                 | 110.00  | 0.00    | 0    | 110     | 0            |
+| 2025-05-12 | APPLE USB                     | 60.00   | 0.00    | 0    | 60      | 0            |
+| 2025-05-14 | APPLE USB C TO LIGHTNING      | 0.00    | 1000.00 | 0    | 280     | 720          |
+| 2025-05-13 | APPLE USB C TO LIGHTNING      | 0.00    | 0.00    | 1000 | 280     | 720          |
+| 2025-05-13 | APPLE USB C ADAPTOR           | 0.00    | 0.00    | 1000 | 250     | 750          |
+| 2025-05-14 | APPLE USB C ADAPTOR           | 0.00    | 0.00    | 240  | 240     | 0            |
+| 2025-05-14 | APPLE USB C ADAPTOR           | 0.00    | 500.00  | 0    | 240     | 260          |
+| 2025-05-13 | TEMP                          | 150.00  | 0.00    | 0    | 40      | 110          |
+| 2025-05-14 | 80 TEMP                       | 0.00    | 0.00    | 1700 | 160     | 1540         |
+| 2025-05-15 | APPLE USB C ADAPTOR           | 0.00    | 0.00    | 500  | 240     | 260          |
+| 2025-05-15 | APPLE USB C TO LIGHTNING      | 0.00    | 0.00    | 500  | 280     | 220          |
+| 2025-05-17 | PLAYGO PODS2                  | 0.00    | 0.00    | 1000 | 800     | 200          |
+| 2025-05-17 | APPLE USB C TO LIGHTNING      | 0.00    | 0.00    | 280  | 280     | 0            |
+| 2025-05-17 | 40 TEMP                       | 0.00    | 0.00    | 40   | 40      | 0            |
+| 2025-05-17 | USB TO LIGHTNING CABLE        | 0.00    | 0.00    | 40   | 40      | 0            |
+| 2025-05-17 | APPLE ADAP                    | 0.00    | 0.00    | 250  | 110     | 140          |
+| 2025-05-17 | 50 TEMP                       | 0.00    | 0.00    | 500  | 50      | 450          |
+| 2025-05-17 | S22 ULTRA TEMP                | 0.00    | 0.00    | 500  | 70      | 430          |
+| 2025-05-17 | APPLE ADAP                    | 0.00    | 0.00    | 110  | 110     | 0            |
+| 2025-05-18 | APPLE USB C TO LIGHTNING      | 0.00    | 500.00  | 0    | 280     | 220          |
+| 2025-05-18 | APPLE USB C ADAPTOR           | 0.00    | 500.00  | 0    | 240     | 260          |
+| 2025-05-18 | APPLE ADAP                    | 0.00    | 0.00    | 120  | 110     | 10           |
+| 2025-05-18 | USB TO LIGHTNING CABLE        | 0.00    | 0.00    | 50   | 40      | 10           |
+| 2025-05-18 | PORTRONICS KONNECT LINK 8 PIN | 0.00    | 0.00    | 300  | 75      | 225          |
+| 2025-05-18 | 40 TEMP                       | 0.00    | 500.00  | 0    | 40      | 460          |
+| 2025-05-18 | APPLE USB C TO LIGHTNING      | 0.00    | 0.00    | 500  | 280     | 220          |
+| 2025-05-18 | APPLE USB C ADAPTOR           | 0.00    | 0.00    | 500  | 240     | 260          |
+| 2025-05-19 | APPLE USB C TO LIGHTNING      | 0.00    | 0.00    | 1000 | 280     | 720          |
+| 2025-05-19 | SIMPLE COVER                  | 0.00    | 100.00  | 0    | 80      | 20           |
+| 2025-05-19 | 50 TEMP                       | 0.00    | 50.00   | 0    | 50      | 0            |
+| 2025-05-19 | XIOMI COPY                    | 0.00    | 0.00    | 400  | 150     | 250          |
+| 2025-05-19 | SIMPLE COVER                  | 350.00  | 0.00    | 0    | 80      | 270          |
+| 2025-05-20 | PORTRONICS KONNECT LINK 8 PIN | 0.00    | 75.00   | 0    | 75      | 0            |
+| 2025-05-20 | APPLE USB C TO LIGHTNING      | 0.00    | 280.00  | 0    | 280     | 0            |
+| 2025-05-20 | SIMPLE COVER                  | 0.00    | 80.00   | 0    | 80      | 0            |
+| 2025-05-20 | 50 TEMP                       | 0.00    | 50.00   | 0    | 50      | 0            |
+| 2025-05-20 | APPLE USB C ADAPTOR           | 0.00    | 240.00  | 0    | 240     | 0            |
+| 2025-05-20 | APPLE USB C TO LIGHTNING      | 0.00    | 110.00  | 0    | 110     | 0            |
+| 2025-05-21 | SIMPLE COVER                  | 0.00    | 0.00    | 500  | 80      | 420          |
+| 2025-05-20 | 40 TEMP                       | 0.00    | 150.00  | 0    | 40      | 110          |
+| 2025-05-23 | 50 TEMP                       | 0.00    | 300.00  | 0    | 50      | 250          |
+| 2025-05-23 | APPLE AIR PODS FIRST COPY     | 0.00    | 1200.00 | 0    | 400     | 800          |
+| 2025-05-22 | APPLE ADAP                    | 0.00    | 250.00  | 0    | 110     | 140          |
+| 2025-05-22 | APPLE CABLE                   | 0.00    | 250.00  | 0    | 60      | 190          |
+| 2025-05-25 | 40 TEMP                       | 0.00    | 200.00  | 0    | 40      | 160          |
+| 2025-05-25 | APPLE USB C TO LIGHTNING      | 0.00    | 0.00    | 450  | 110     | 340          |
+| 2025-05-26 | 50 TEMP                       | 0.00    | 0.00    | 400  | 50      | 350          |
+| 2025-05-26 | APPLE USB C TO LIGHTNING      | 0.00    | 0.00    | 250  | 250     | 0            |
+| 2025-05-26 | APPLE USB C ADAPTOR           | 0.00    | 0.00    | 250  | 240     | 10           |
+| 2025-05-26 | SAMSUNG ADAPTER 25W           | 0.00    | 0.00    | 1000 | 450     | 550          |
+| 2025-05-27 | 50 TEMP                       | 0.00    | 0.00    | 150  | 50      | 100          |
+| 2025-05-29 | APPLE USB C TO LIGHTNING      | 0.00    | 0.00    | 1000 | 250     | 750          |
+| 2025-05-29 | APPLE USB C ADAPTOR           | 0.00    | 0.00    | 1000 | 240     | 760          |
++------------+-------------------------------+---------+---------+------+---------+--------------+
+<!-- (your full table content goes here) -->
+  </div>
+
+  <h2>TOTAL PURCHASE = 10,610</h2>
+  <h2>TOTAL SALE = 28,385</h2>
+  <h2>PROFIT = 17,775</h2>
+
+  <script>
+    let fontSize = 16;
+
+    function zoomIn() {
+      fontSize += 2;
+      document.getElementById('content').style.fontSize = fontSize + 'px';
+    }
+
+    function zoomOut() {
+      if (fontSize > 8) {
+        fontSize -= 2;
+        document.getElementById('content').style.fontSize = fontSize + 'px';
+      }
+    }
+
+    function resetZoom() {
+      fontSize = 16;
+      document.getElementById('content').style.fontSize = fontSize + 'px';
+    }
+  </script>
+</body>
+</html>
