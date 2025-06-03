@@ -113,9 +113,11 @@
 
   </style>
 </head>
+<!-- ... (everything up to <body> remains the same) -->
 <body>
   <div class="top-header">
-    <div id="date">📅 Date: </div>
+    <label for="dateSelect">📅 Select Date:</label>
+    <select id="dateSelect"></select>
   </div>
 
   <table class="top-table">
@@ -136,84 +138,91 @@
   </table>
 
   <div class="report-container">
-    <h1>📱 Daily  Report</h1>
+    <h1>📱 Daily Report</h1>
     <div id="report"></div>
   </div>
 
   <script>
-    const data = {
-      date: new Date().toLocaleDateString('en-IN'),
-      accounts: {
-        cash: '₹12,000',
-        icici: '₹8,500',
-        axis: '₹4,300'
-      },
-      purchase: {
-        total: '₹25,000',
-        items: ['iPhone XR', 'Galaxy M14']
-      },
-      sale: {
-        total: '₹30,000',
-        items: ['Redmi Note 12']
-      },
-      repair: {
-        count: 3,
-        devices: ['Realme C25', 'Vivo Y20']
-      },
-      parts: {
-        items: ['Display', 'Battery']
-      },
-      accessories: {
-        sale: '₹2,000',
-        purchase: '₹1,000'
-      }
-    };
+  // All Reports
+  const reports = {
+    "1/6/2025": {
+      accounts: { cash: "178164", icici: "266059.82", axis: "26203.46" },
+      purchase: { count: 2, total: "65500" },
+      sale: { count: 3, total: "82600" },
+      repair: { jobs: 1, total: "1400" },
+      parts: { total: "0" },
+      accessories: { sale: "5150", purchase: "0" }
+    },
+    "2/6/2025": {
+      accounts: { cash: "109864", icici: "169549.32", axis: "28083.20" },
+      purchase: { count: 6, total: "178000" },
+      sale: { count: 3, total: "71000" },
+      repair: { jobs: 1, total: "1300" },
+      parts: { total: "0" },
+      accessories: { sale: "1450", purchase: "0" }
+    }
+  };
 
-    // Top Date & Table
-    document.getElementById('date').innerText += data.date;
+  const dateSelect = document.getElementById('dateSelect');
+  for (let date in reports) {
+    let opt = document.createElement("option");
+    opt.value = date;
+    opt.innerText = date;
+    dateSelect.appendChild(opt);
+  }
+
+  const updateReport = (selectedDate) => {
+    const data = reports[selectedDate];
+
     document.getElementById('cash').innerText = data.accounts.cash;
     document.getElementById('icici').innerText = data.accounts.icici;
     document.getElementById('axis').innerText = data.accounts.axis;
 
-    // Report Cards
     const report = document.getElementById('report');
-
-    function createCard(title, icon, contentHTML, className) {
+    const createCard = (title, icon, contentHTML, className) => {
       return `
         <section class="report-card ${className}">
           <h2>${icon} ${title}</h2>
           ${contentHTML}
-        </section>
-      `;
-    }
+        </section>`;
+    };
 
     const sectionsHTML = [
       createCard('Purchase', '📦',
-        `<p><strong>Total:</strong> ${data.purchase.total}</p>
-         <p><strong>Items:</strong> ${data.purchase.items.join(', ')}</p>`,
+        `<p><strong>Count:</strong> ${data.purchase.count}</p>
+         <p><strong>Total:</strong> ₹${data.purchase.total}</p>`,
         'soft-blue'),
 
       createCard('Sale', '💸',
-        `<p><strong>Total:</strong> ${data.sale.total}</p>
-         <p><strong>Items:</strong> ${data.sale.items.join(', ')}</p>`,
+        `<p><strong>Count:</strong> ${data.sale.count}</p>
+         <p><strong>Total:</strong> ₹${data.sale.total}</p>`,
         'soft-green'),
 
       createCard('Repairs', '🛠️',
-        `<p><strong>Jobs:</strong> ${data.repair.count}</p>
-         <p><strong>Devices:</strong> ${data.repair.devices.join(', ')}</p>`,
+        `<p><strong>Jobs:</strong> ${data.repair.jobs}</p>
+         <p><strong>Total:</strong> ₹${data.repair.total}</p>`,
         'soft-yellow'),
 
       createCard('Parts', '⚙️',
-        `<p><strong>Items:</strong> ${data.parts.items.join(', ')}</p>`,
+        `<p><strong>Total:</strong> ₹${data.parts.total}</p>`,
         'soft-pink'),
 
       createCard('Accessories', '🎧',
-        `<p><strong>Sale:</strong> ${data.accessories.sale}</p>
-         <p><strong>Purchase:</strong> ${data.accessories.purchase}</p>`,
+        `<p><strong>Sale:</strong> ₹${data.accessories.sale}</p>
+         <p><strong>Purchase:</strong> ₹${data.accessories.purchase}</p>`,
         'soft-purple')
     ];
 
     report.innerHTML = sectionsHTML.join('');
-  </script>
+  };
+
+  // Load first date by default
+  updateReport(dateSelect.value = Object.keys(reports)[0]);
+
+  // Event: Change report when date is selected
+  dateSelect.addEventListener('change', () => {
+    updateReport(dateSelect.value);
+  });
+</script>
 </body>
 </html>
