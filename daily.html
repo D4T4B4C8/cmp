@@ -225,7 +225,13 @@
   };
 
   // Load first date by default
-  updateReport(dateSelect.value = Object.keys(reports)[0]);
+  const sortedDates = Object.keys(reports).sort((a, b) => {
+  const [da, ma, ya] = a.split('/').map(Number);
+  const [db, mb, yb] = b.split('/').map(Number);
+  return new Date(yb, mb - 1, db) - new Date(ya, ma - 1, da);
+});
+updateReport(dateSelect.value = sortedDates[0]);
+
 
   // Event: Change report when date is selected
   dateSelect.addEventListener('change', () => {
