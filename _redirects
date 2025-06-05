@@ -1,4 +1,4 @@
 /login     /login.html     200
-/cmp       /login.html?target=cmp     401!
-/cmp.html  /login.html?target=cmp     401!
-/roamio.html /login.html?target=roamio 401!
+#/cmp.html    /login.html    401!
+#/cmp    /login.html    401!
+#/roamio.html /login.html    401!
