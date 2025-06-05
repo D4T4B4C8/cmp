@@ -2,23 +2,37 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>JAN - APR Report</title>
+  <title>JAN - MAY Report</title>
   <style>
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      background: #121212;
-      color: #fff;
+      background: linear-gradient(-45deg, #f0f9ff, #e0f7fa, #fce4ec, #e0f2ff);
+      background-size: 400% 400%;
+      animation: gradientMove 20s ease infinite;
+      color: #222;
       display: flex;
       flex-direction: column;
       align-items: center;
       padding: 40px 20px;
     }
 
+    @keyframes gradientMove {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
     h2 {
       margin-bottom: 20px;
-      color: #00e5ff;
-      text-shadow: 0 0 8px #00e5ff99;
+      color: #0c4a6e;
+      text-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
     }
 
     .chart-container {
@@ -44,7 +58,7 @@
 
     .bar:hover {
       transform: scale(1.08);
-      box-shadow: 0 0 12px rgba(0,255,255,0.3);
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
     }
 
     .bar-label {
@@ -53,7 +67,7 @@
       width: 100%;
       text-align: center;
       font-size: 12px;
-      color: #ffffffaa;
+      color: #333;
     }
 
     .tooltip {
@@ -61,13 +75,14 @@
       top: -30px;
       left: 50%;
       transform: translateX(-50%);
-      background-color: #333;
-      color: #fff;
+      background-color: #ffffff;
+      color: #000;
       padding: 4px 8px;
       border-radius: 4px;
       font-size: 12px;
       display: none;
       white-space: nowrap;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     }
 
     .bar:hover .tooltip {
@@ -75,20 +90,18 @@
     }
 
     /* Month Gradient Styles */
-    .jan-bar { background: linear-gradient(135deg, #42a5f5, #478ed1); }  /* Blue */
-  .feb-bar { background: linear-gradient(135deg, #ef5350, #d32f2f); }  /* Red */
-  .mar-bar { background: linear-gradient(135deg, #66bb6a, #388e3c); }  /* Green */
-  .apr-bar { background: linear-gradient(135deg, #ab47bc, #8e24aa); }  /* Purple */
-  .may-bar { background: linear-gradient(135deg, #ffa726, #fb8c00); }  /* Orange */
-  .jun-bar { background: linear-gradient(135deg, #26c6da, #00acc1); }  /* Cyan */
-  .jul-bar { background: linear-gradient(135deg, #ec407a, #d81b60); }  /* Pink */
-  .aug-bar { background: linear-gradient(135deg, #7e57c2, #5e35b1); }  /* Deep Purple */
-  .sep-bar { background: linear-gradient(135deg, #66bb6a, #43a047); }  /* Leafy Green */
-  .oct-bar { background: linear-gradient(135deg, #ff7043, #e64a19); }  /* Pumpkin */
-  .nov-bar { background: linear-gradient(135deg, #8d6e63, #5d4037); }  /* Brown */
-  .dec-bar { background: linear-gradient(135deg, #78909c, #455a64); }  /* Cool Gray */
-
-
+    .jan-bar { background: linear-gradient(135deg, #42a5f5, #478ed1); }
+    .feb-bar { background: linear-gradient(135deg, #ef5350, #d32f2f); }
+    .mar-bar { background: linear-gradient(135deg, #66bb6a, #388e3c); }
+    .apr-bar { background: linear-gradient(135deg, #ab47bc, #8e24aa); }
+    .may-bar { background: linear-gradient(135deg, #ffa726, #fb8c00); }
+    .jun-bar { background: linear-gradient(135deg, #26c6da, #00acc1); }
+    .jul-bar { background: linear-gradient(135deg, #ec407a, #d81b60); }
+    .aug-bar { background: linear-gradient(135deg, #7e57c2, #5e35b1); }
+    .sep-bar { background: linear-gradient(135deg, #66bb6a, #43a047); }
+    .oct-bar { background: linear-gradient(135deg, #ff7043, #e64a19); }
+    .nov-bar { background: linear-gradient(135deg, #8d6e63, #5d4037); }
+    .dec-bar { background: linear-gradient(135deg, #78909c, #455a64); }
   </style>
 </head>
 <body>
@@ -195,7 +208,6 @@
     const bars = document.querySelectorAll('.bar');
     let maxValue = 0;
 
-    // Step 1: Find max
     bars.forEach(bar => {
       const total = parseInt(bar.dataset.total, 10);
       if (total > maxValue) maxValue = total;
@@ -203,7 +215,6 @@
 
     const maxHeight = 220;
 
-    // Step 2: Animate
     bars.forEach((bar, index) => {
       const total = parseInt(bar.dataset.total, 10);
       const height = (total / maxValue) * maxHeight;
@@ -211,9 +222,11 @@
         bar.style.height = `${height}px`;
         bar.style.opacity = 1;
         bar.style.transform = 'translateY(0)';
-      }, index * 100); // delay per bar
+      }, index * 100);
     });
   </script>
 
+  </body>
+  </html>
 </body>
 </html>
