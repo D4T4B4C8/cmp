@@ -1,4 +1,1 @@
-/list.html
-  Basic-Auth: cmp System123#
-/list
-  Basic-Auth: cmp System123#
+/cmp.html  /login.html  401! Role=cmp_user
