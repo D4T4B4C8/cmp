@@ -8,8 +8,8 @@
   <style>
     body {
       font-family: 'Poppins', sans-serif;
-      background-color: #121212;
-      color: #fff;
+      background: linear-gradient(135deg, #fff5e6, #fdfdfd);
+      color: #000000;
       padding: 40px 20px;
       margin: 0;
       text-align: center;
@@ -17,8 +17,7 @@
 
     h2 {
       font-size: 1.8rem;
-      color: #00e5ff;
-      text-shadow: 0 0 8px #00e5ff88;
+      color: #000000;
       margin: 60px 0 20px;
     }
 
@@ -26,10 +25,10 @@
       width: 100%;
       max-width: 800px;
       margin: 0 auto 60px;
-      background: #1e1e1e;
+      background: #ffffff;
       padding: 20px;
       border-radius: 12px;
-      box-shadow: 0 0 12px rgba(0, 229, 255, 0.1);
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
     }
 
     canvas {
@@ -70,7 +69,7 @@
       responsive: true,
       plugins: {
         legend: {
-          labels: { color: '#ffffffcc' }
+          labels: { color: '#000000' }
         },
         title: {
           display: false
@@ -78,13 +77,13 @@
       },
       scales: {
         x: {
-          ticks: { color: '#ccc' },
-          grid: { color: '#333' }
+          ticks: { color: '#000000' },
+          grid: { color: '#eeeeee' }
         },
         y: {
           beginAtZero: true,
-          ticks: { color: '#ccc' },
-          grid: { color: '#333' }
+          ticks: { color: '#000000' },
+          grid: { color: '#eeeeee' }
         }
       }
     };
@@ -130,10 +129,10 @@
       });
     }
 
-    createBarChart('phoneChart', 'Phone Profit', p, '#66bb6a', '#43a047');
-    createBarChart('salesChart', 'Sales Accessories Profit', s, '#64b5f6', '#1e88e5');
-    createBarChart('repairChart', 'Repair Profit', r, '#f48fb1', '#e91e63');
-    createBarChart('expansesChart', 'Expenses', e, '#ce93d8', '#ab47bc');
+    createBarChart('phoneChart', 'Phone Profit', p, '#aed581', '#81c784');       // Green
+    createBarChart('salesChart', 'Sales Accessories Profit', s, '#64b5f6', '#90caf9'); // Blue
+    createBarChart('repairChart', 'Repair Profit', r, '#f8bbd0', '#f48fb1');     // Pink
+    createBarChart('expansesChart', 'Expenses', e, '#d1c4e9', '#ce93d8');        // Purple
   </script>
 
 </body>
