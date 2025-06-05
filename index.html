@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Welcome Page</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@600&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Raleway', sans-serif;
+      height: 100vh;
+      background: linear-gradient(-45deg, #FFDEE9, #B5FFFC, #E0C3FC, #C9FFBF);
+      background-size: 400% 400%;
+      animation: gradientBG 10s ease infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @keyframes gradientBG {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    .container {
+      text-align: center;
+      animation: fadeSlideIn 1.2s ease forwards;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+
+    @keyframes fadeSlideIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .button {
+      display: inline-block;
+      margin: 20px;
+      padding: 18px 40px;
+      font-size: 1.4em;
+      font-weight: bold;
+      border: none;
+      border-radius: 14px;
+      background: linear-gradient(to right, #00C9FF, #92FE9D);
+      color: #222;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    .button:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+      color: #222;
+      font-size: 3em;
+      margin-bottom: 40px;
+      text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Select Your Dashboard</h1>
+    <a href="cmp.html" class="button">CMP</a>
+    <a href="roamio.html" class="button">ROAMIO</a>
+  </div>
+</body>
+</html>
