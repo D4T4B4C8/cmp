@@ -1,3 +1,4 @@
+/login     /login.html     200
 /cmp.html    /login.html    401!
 /cmp    /login.html    401!
 /roamio.html /login.html    401!
