@@ -8,30 +8,40 @@
   <style>
     body {
       font-family: 'Poppins', sans-serif;
-      background-color: #121212;
-      color: #ffffff;
-      text-align: center;
       margin: 0;
       padding: 40px 20px;
+      text-align: center;
+      color: #000000;
+      background: linear-gradient(270deg, #ffb6b9, #fae3d9, #bbded6, #8ac6d1);
+      background-size: 800% 800%;
+      animation: gradientBG 20s ease infinite;
     }
 
     h2 {
-      font-size: 1.8rem;
-      margin-bottom: 30px;
+      font-size: 2rem;
+      margin-bottom: 40px;
+      color: #1a1a1a;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
     }
 
     .chart-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 20px;
+      gap: 24px;
       margin-bottom: 60px;
     }
 
     .chart-container {
-      background-color: #1e1e1e;
+      background-color: rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(10px);
       padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 0 12px rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
+    }
+
+    .chart-container:hover {
+      transform: translateY(-5px);
     }
 
     canvas {
@@ -44,209 +54,186 @@
         grid-template-columns: 1fr;
       }
     }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
   </style>
 </head>
 <body>
 
-  <h2>Phone Sales vs Purchases Report (Jan - Dec)</h2>
+  <h2>📊 Phone Sales vs Purchases Report (Jan - Dec)</h2>
 
   <div class="chart-grid">
-    <!-- PURCHASE CHARTS LEFT -->
-    <div class="chart-container">
-      <canvas id="purchasePieChart"></canvas>
-    </div>
-    <div class="chart-container">
-      <canvas id="salesPieChart"></canvas>
-    </div>
-    <div class="chart-container">
-      <canvas id="purchaseBarChart"></canvas>
-    </div>
-    <div class="chart-container">
-      <canvas id="salesBarChart"></canvas>
-    </div>
+    <div class="chart-container"><canvas id="purchasePieChart"></canvas></div>
+    <div class="chart-container"><canvas id="salesPieChart"></canvas></div>
+    <div class="chart-container"><canvas id="purchaseBarChart"></canvas></div>
+    <div class="chart-container"><canvas id="salesBarChart"></canvas></div>
   </div>
 
-	<script>
-	  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-	
-	  const saleAmounts = [2173952, 1834799, 2294830, 1272700, 1944661, 0, 0, 0, 0, 0, 0, 0];
-	  const saleQuantities = [90, 84, 105, 70, 89, 0, 0, 0, 0, 0, 0, 0];
-	  const purchaseAmounts = [1887696, 1626478, 1776406, 1297435, 1659700, 0, 0, 0, 0, 0, 0, 0];
-	  const purchaseQuantities = [96, 90, 111, 75, 81, 0, 0, 0, 0, 0, 0, 0];
-	
-	  const softRedOranges = [
-	    '#f8bbd0', '#f48fb1', '#f06292', '#ec407a',
-	    '#e57373', '#ef9a9a', '#ffab91', '#ffccbc',
-	    '#ffb74d', '#ffe082', '#d7ccc8', '#f0f4c3'
-	  ];
-	
-	  const softGreenBlues = [
-	    '#b2dfdb', '#80cbc4', '#4db6ac', '#26a69a',
-	    '#81c784', '#aed581', '#dce775', '#b2ebf2',
-	    '#b3e5fc', '#81d4fa', '#4fc3f7', '#64b5f6'
-	  ];
-	
-	  // Maps for redirection
-	  const purchaseLinks = {
-	    Jan: 'p_jan.html',
-	    Feb: 'p_feb.html',
-	    Mar: 'p_mar.html',
-	    Apr: 'p_apr.html',
-	    May: 'p_may.html',
-	    Jun: 'p_jun.html',
-	    Jul: 'p_jul.html',
-	    Aug: 'p_aug.html',
-	    Sep: 'p_sep.html',
-	    Oct: 'p_oct.html',
-	    Nov: 'p_nov.html',
-	    Dec: 'p_dec.html'
-	  };
-	
-	  const saleLinks = {
-	    Jan: 's_jan.html',
-	    Feb: 's_feb.html',
-	    Mar: 's_mar.html',
-	    Apr: 's_apr.html',
-	    May: 's_may.html',
-	    Jun: 's_jun.html',
-	    Jul: 's_jul.html',
-	    Aug: 's_aug.html',
-	    Sep: 's_sep.html',
-	    Oct: 's_oct.html',
-	    Nov: 's_nov.html',
-	    Dec: 's_dec.html'
-	  };
-	
-	  // PURCHASE PIE
-	  new Chart(document.getElementById('purchasePieChart'), {
-	    type: 'pie',
-	    data: {
-	      labels: months,
-	      datasets: [{
-	        label: 'Purchase Amount',
-	        data: purchaseAmounts,
-	        backgroundColor: softRedOranges,
-	        borderColor: '#121212',
-	        borderWidth: 2
-	      }]
-	    },
-	    options: {
-	      onClick: (e, elements) => {
-	        if (elements.length > 0) {
-	          const chart = elements[0];
-	          const label = months[chart.index];
-	          const url = purchaseLinks[label];
-	          if (url) window.location.href = url;
-	        }
-	      },
-	      plugins: {
-	        title: {
-	          display: true,
-	          text: 'Purchase Amount',
-	          color: '#fff'
-	        },
-	        legend: {
-	          labels: {
-	            color: '#ccc'
-	          }
-	        }
-	      }
-	    }
-	  });
-	
-	  // SALES PIE
-	  new Chart(document.getElementById('salesPieChart'), {
-	    type: 'pie',
-	    data: {
-	      labels: months,
-	      datasets: [{
-	        label: 'Sale Amount',
-	        data: saleAmounts,
-	        backgroundColor: softGreenBlues,
-	        borderColor: '#121212',
-	        borderWidth: 2
-	      }]
-	    },
-	    options: {
-	      onClick: (e, elements) => {
-	        if (elements.length > 0) {
-	          const chart = elements[0];
-	          const label = months[chart.index];
-	          const url = saleLinks[label];
-	          if (url) window.location.href = url;
-	        }
-	      },
-	      plugins: {
-	        title: {
-	          display: true,
-	          text: 'Sales Amount',
-	          color: '#fff'
-	        },
-	        legend: {
-	          labels: {
-	            color: '#ccc'
-	          }
-	        }
-	      }
-	    }
-	  });
-	
-	  // PURCHASE BAR
-	  new Chart(document.getElementById('purchaseBarChart'), {
-	    type: 'bar',
-	    data: {
-	      labels: months,
-	      datasets: [{
-	        label: 'Purchase Quantity',
-	        data: purchaseQuantities,
-	        backgroundColor: softRedOranges,
-	        borderRadius: 6
-	      }]
-	    },
-	    options: {
-	      plugins: {
-	        title: {
-	          display: true,
-	          text: 'Purchase Quantity',
-	          color: '#fff'
-	        },
-	        legend: { display: false }
-	      },
-	      scales: {
-	        x: { ticks: { color: '#ccc' }, grid: { color: '#333' } },
-	        y: { ticks: { color: '#ccc' }, grid: { color: '#333' }, beginAtZero: true }
-	      }
-	    }
-	  });
-	
-	  // SALES BAR
-	  new Chart(document.getElementById('salesBarChart'), {
-	    type: 'bar',
-	    data: {
-	      labels: months,
-	      datasets: [{
-	        label: 'Sale Quantity',
-	        data: saleQuantities,
-	        backgroundColor: softGreenBlues,
-	        borderRadius: 6
-	      }]
-	    },
-	    options: {
-	      plugins: {
-	        title: {
-	          display: true,
-	          text: 'Sales Quantity',
-	          color: '#fff'
-	        },
-	        legend: { display: false }
-	      },
-	      scales: {
-	        x: { ticks: { color: '#ccc' }, grid: { color: '#333' } },
-	        y: { ticks: { color: '#ccc' }, grid: { color: '#333' }, beginAtZero: true }
-	      }
-	    }
-	  });
-	</script>
-	
+  <script>
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const saleAmounts = [2173952, 1834799, 2294830, 1272700, 1944661, 0, 0, 0, 0, 0, 0, 0];
+    const saleQuantities = [90, 84, 105, 70, 89, 0, 0, 0, 0, 0, 0, 0];
+    const purchaseAmounts = [1887696, 1626478, 1776406, 1297435, 1659700, 0, 0, 0, 0, 0, 0, 0];
+    const purchaseQuantities = [96, 90, 111, 75, 81, 0, 0, 0, 0, 0, 0, 0];
+
+    const softRedOranges = [
+      '#f8bbd0', '#f48fb1', '#f06292', '#ec407a',
+      '#e57373', '#ef9a9a', '#ffab91', '#ffccbc',
+      '#ffb74d', '#ffe082', '#d7ccc8', '#f0f4c3'
+    ];
+
+    const softGreenBlues = [
+      '#b2dfdb', '#80cbc4', '#4db6ac', '#26a69a',
+      '#81c784', '#aed581', '#dce775', '#b2ebf2',
+      '#b3e5fc', '#81d4fa', '#4fc3f7', '#64b5f6'
+    ];
+
+    const purchaseLinks = {
+      Jan: 'p_jan.html', Feb: 'p_feb.html', Mar: 'p_mar.html', Apr: 'p_apr.html',
+      May: 'p_may.html', Jun: 'p_jun.html', Jul: 'p_jul.html', Aug: 'p_aug.html',
+      Sep: 'p_sep.html', Oct: 'p_oct.html', Nov: 'p_nov.html', Dec: 'p_dec.html'
+    };
+
+    const saleLinks = {
+      Jan: 's_jan.html', Feb: 's_feb.html', Mar: 's_mar.html', Apr: 's_apr.html',
+      May: 's_may.html', Jun: 's_jun.html', Jul: 's_jul.html', Aug: 's_aug.html',
+      Sep: 's_sep.html', Oct: 's_oct.html', Nov: 's_nov.html', Dec: 's_dec.html'
+    };
+
+    // PURCHASE PIE
+    new Chart(document.getElementById('purchasePieChart'), {
+      type: 'pie',
+      data: {
+        labels: months,
+        datasets: [{
+          label: 'Purchase Amount',
+          data: purchaseAmounts,
+          backgroundColor: softRedOranges,
+          borderColor: '#000000',
+          borderWidth: 2
+        }]
+      },
+      options: {
+        onClick: (e, elements) => {
+          if (elements.length > 0) {
+            const chart = elements[0];
+            const label = months[chart.index];
+            const url = purchaseLinks[label];
+            if (url) window.location.href = url;
+          }
+        },
+        plugins: {
+          title: {
+            display: true,
+            text: '📥 Purchase Amount',
+            color: '#000000'
+          },
+          legend: {
+            labels: {
+              color: '#000000'
+            }
+          }
+        }
+      }
+    });
+
+    // SALES PIE
+    new Chart(document.getElementById('salesPieChart'), {
+      type: 'pie',
+      data: {
+        labels: months,
+        datasets: [{
+          label: 'Sale Amount',
+          data: saleAmounts,
+          backgroundColor: softGreenBlues,
+          borderColor: '#000000',
+          borderWidth: 2
+        }]
+      },
+      options: {
+        onClick: (e, elements) => {
+          if (elements.length > 0) {
+            const chart = elements[0];
+            const label = months[chart.index];
+            const url = saleLinks[label];
+            if (url) window.location.href = url;
+          }
+        },
+        plugins: {
+          title: {
+            display: true,
+            text: '📤 Sales Amount',
+            color: '#000000'
+          },
+          legend: {
+            labels: {
+              color: '#000000'
+            }
+          }
+        }
+      }
+    });
+
+    // PURCHASE BAR
+    new Chart(document.getElementById('purchaseBarChart'), {
+      type: 'bar',
+      data: {
+        labels: months,
+        datasets: [{
+          label: 'Purchase Quantity',
+          data: purchaseQuantities,
+          backgroundColor: softRedOranges,
+          borderRadius: 6
+        }]
+      },
+      options: {
+        plugins: {
+          title: {
+            display: true,
+            text: '📦 Purchase Quantity',
+            color: '#000000'
+          },
+          legend: { display: false }
+        },
+        scales: {
+          x: { ticks: { color: '#000000' }, grid: { color: '#444' } },
+          y: { ticks: { color: '#000000' }, grid: { color: '#444' }, beginAtZero: true }
+        }
+      }
+    });
+
+    // SALES BAR
+    new Chart(document.getElementById('salesBarChart'), {
+      type: 'bar',
+      data: {
+        labels: months,
+        datasets: [{
+          label: 'Sale Quantity',
+          data: saleQuantities,
+          backgroundColor: softGreenBlues,
+          borderRadius: 6
+        }]
+      },
+      options: {
+        plugins: {
+          title: {
+            display: true,
+            text: '📈 Sales Quantity',
+            color: '#000000'
+          },
+          legend: { display: false }
+        },
+        scales: {
+          x: { ticks: { color: '#000000' }, grid: { color: '#444' } },
+          y: { ticks: { color: '#000000' }, grid: { color: '#444' }, beginAtZero: true }
+        }
+      }
+    });
+  </script>
+
 </body>
 </html>
