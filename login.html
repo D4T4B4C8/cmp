@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login</title>
+  <title>Secure Access</title>
   <style>
     body {
       margin: 0;
@@ -14,7 +14,6 @@
       align-items: center;
       height: 100vh;
     }
-
     .login-container {
       background: #ffffffcc;
       padding: 30px 40px;
@@ -24,13 +23,11 @@
       max-width: 350px;
       width: 100%;
     }
-
     .login-container h2 {
       margin-bottom: 20px;
       color: #444;
     }
-
-    input[type="password"] {
+    input {
       width: 100%;
       padding: 12px;
       margin-bottom: 16px;
@@ -38,7 +35,6 @@
       border-radius: 8px;
       box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
     }
-
     button {
       width: 100%;
       padding: 12px;
@@ -50,12 +46,10 @@
       cursor: pointer;
       transition: all 0.3s ease;
     }
-
     button:hover {
       transform: scale(1.03);
       box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
-
     .error {
       color: red;
       margin-top: 10px;
@@ -65,45 +59,38 @@
 </head>
 <body>
   <div class="login-container">
-    <h2 id="heading">Enter Password</h2>
-    <input type="password" id="password" placeholder="Password" />
-    <button id="loginBtn" onclick="checkPassword()">Login</button>
+    <h2>Enter Password</h2>
+    <input type="text" id="fileInput" placeholder="***********" />
+    <button onclick="checkAccess()">Access</button>
     <div class="error" id="errorMsg"></div>
   </div>
 
   <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const target = urlParams.get('target');
+    // Store only allowed SHA-512 hashes
+    const allowedHashes = [
+      "24d622f39043d423766c99dde9b11498ed421c608a86d11feca84fa222f447209b907e350767057cbe13ab9ca0f5e43ea4841391703835e57ffe4a196f43d31d",
+      "97957cd6637be51b0c7a15762e9e09d4ed5ebcb9157470c10c86c9827c7b06df4d1b4e46bc0a30d1b48fb8c253b681eea0c93c64169226e40ab8c957a7c033e6"
+      // Add more hashes here
+    ];
 
-    const headings = {
-      cmp: "Login to CMP",
-      roamio: "Login to ROAMIO"
-    };
+    async function checkAccess() {
+      const input = document.getElementById("fileInput").value.trim();
 
-    const hashes = {
-      cmp: "dda2f9a1d059f744b19181ef98f32909d8cddd769b5f25d8ac26c7d8715c82ddc78171296dd1258598094cce5cd5e744aa7ceff98350b6d121e25d0a4c2720bf",
-      roamio: "dda2f9a1d059f744b19181ef98f32909d8cddd769b5f25d8ac26c7d8715c82ddc78171296dd1258598094cce5cd5e744aa7ceff98350b6d121e25d0a4c2720bf"
-    };
+      if (!input.endsWith(".html")) {
+        document.getElementById("errorMsg").innerText = "Must end with .html";
+        return;
+      }
 
-    if (target && headings[target]) {
-      document.getElementById("heading").innerText = headings[target];
-    } else {
-      document.getElementById("errorMsg").innerText = "Invalid access.";
-      document.getElementById("loginBtn").disabled = true;
-    }
-
-    async function checkPassword() {
-      const input = document.getElementById("password").value;
       const encoder = new TextEncoder();
       const data = encoder.encode(input);
       const hashBuffer = await crypto.subtle.digest("SHA-512", data);
       const hashArray = Array.from(new Uint8Array(hashBuffer));
       const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
 
-      if (hashHex === hashes[target]) {
-        window.location.href = `${target}.html`;
+      if (allowedHashes.includes(hashHex)) {
+        window.location.href = input;
       } else {
-        document.getElementById("errorMsg").innerText = "Incorrect password!";
+        document.getElementById("errorMsg").innerText = "Access denied.";
       }
     }
   </script>
