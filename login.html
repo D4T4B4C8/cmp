@@ -22,6 +22,7 @@
       text-align: center;
       max-width: 350px;
       width: 100%;
+      position: relative;
     }
     .login-container h2 {
       margin-bottom: 20px;
@@ -55,29 +56,42 @@
       margin-top: 10px;
       font-size: 14px;
     }
+    .success {
+      color: green;
+      font-weight: bold;
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 16px;
+    }
   </style>
 </head>
 <body>
   <div class="login-container">
+    <div id="successMsg" class="success" style="display: none;">Password Saved</div>
     <h2>Enter Password</h2>
-    <input type="text" id="fileInput" placeholder="***********" />
+    <input type="password" id="fileInput" placeholder="***********" />
     <button onclick="checkAccess()">Access</button>
     <div class="error" id="errorMsg"></div>
   </div>
 
   <script>
-    // Store only allowed SHA-512 hashes
     const allowedHashes = [
       "24d622f39043d423766c99dde9b11498ed421c608a86d11feca84fa222f447209b907e350767057cbe13ab9ca0f5e43ea4841391703835e57ffe4a196f43d31d",
       "97957cd6637be51b0c7a15762e9e09d4ed5ebcb9157470c10c86c9827c7b06df4d1b4e46bc0a30d1b48fb8c253b681eea0c93c64169226e40ab8c957a7c033e6"
-      // Add more hashes here
     ];
 
     async function checkAccess() {
       const input = document.getElementById("fileInput").value.trim();
+      const errorMsg = document.getElementById("errorMsg");
+      const successMsg = document.getElementById("successMsg");
+
+      errorMsg.innerText = "";
+      successMsg.style.display = "none";
 
       if (!input.endsWith(".html")) {
-        document.getElementById("errorMsg").innerText = "Must end with .html";
+        errorMsg.innerText = "Must end with .html";
         return;
       }
 
@@ -88,9 +102,12 @@
       const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
 
       if (allowedHashes.includes(hashHex)) {
-        window.location.href = input;
+        successMsg.style.display = "block";
+        setTimeout(() => {
+          window.location.href = input;
+        }, 1500); // Delay 1.5 seconds before redirect
       } else {
-        document.getElementById("errorMsg").innerText = "Access denied.";
+        errorMsg.innerText = "Access denied.";
       }
     }
   </script>
