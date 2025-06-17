@@ -1,183 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Advanced Radar Graph</title>
+  <meta charset="UTF-8">
+  <title>Text Viewer</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: radial-gradient(circle at top left, #f6f9fc, #e0f7fa, #fce4ec);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      overflow: hidden;
+      padding: 1em;
+      font-family: 'Courier New', monospace;
+      background: #f4f4f4;
+      color: #111; /* dark black for better contrast */
     }
 
-    canvas {
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 20px;
-      box-shadow: 0 0 60px rgba(255, 255, 255, 0.2), inset 0 0 20px rgba(255, 255, 255, 0.1);
-      transition: transform 0.3s ease;
-      cursor: pointer;
-    }
-
-    canvas:hover {
-      transform: scale(1.02);
-    }
-
-    .tooltip {
-      position: absolute;
+    #controls {
+      position: fixed;
+      top: 10px;
+      right: 10px;
       background: white;
+      padding: 6px 10px;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      z-index: 1000;
+    }
+
+    button {
       padding: 6px 12px;
-      border-radius: 8px;
-      font-size: 13px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      pointer-events: none;
-      transform: translate(-50%, -120%);
-      display: none;
-      z-index: 999;
+      margin: 0 4px;
+      font-size: 14px;
+      cursor: pointer;
+      background-color: #111;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #333;
+    }
+
+    #content {
+      white-space: pre-wrap;
+      font-size: 16px;
+      line-height: 1.6;
+      padding-top: 4em;
+      font-feature-settings: "tnum"; /* enable tabular numbers if supported */
+      font-variant-numeric: tabular-nums;
+    }
+
+    h5 {
+      font-weight: bold;
+      font-family: monospace;
+      color: #000;
+      margin-left: 1em;
     }
   </style>
 </head>
 <body>
-  <canvas id="radarCanvas" width="800" height="800"></canvas>
-  <div id="tooltip" class="tooltip"></div>
+
+  <div id="controls">
+    <button onclick="zoomIn()">Zoom In</button>
+    <button onclick="zoomOut()">Zoom Out</button>
+    <button onclick="resetZoom()">Reset</button>
+  </div>
+
+  <div id="content">
+
+<!-- Paste your .txt content between these lines -->
+<h1> PENDING </h1>
+<h3>
++----------+------------------------+---------------------------------+------------+---------+
+| ORDER_ID | NAME                   | C_NAME                          | DATE       | PENDING |
++----------+------------------------+---------------------------------+------------+---------+
+| 365      | ONEPLUSE NORD CE2 LITE | NASEEM                          | 2025-04-12 | 5000    |
+| 442      | IPHONE 11              | FAHEEM BHAI OFFICE              | 2025-01-10 | 17000   |
+| 1085     | SAMSUNG NOTE 20 ULTRA  | FARHAT BHAI PERSONAL            | 2025-01-20 | 18500   |
+| 1300     | REALME 10 PRO PLUS     | FAHEEM BHAI FRIEND [JAWAD BAHI] | 2025-02-07 | 13500   |
+| 1400     | REALME 9               | AKRAM FAHEEM BHAI OFFICE        | 2025-05-22 | 10000   |
+| 1535     | REDMI NOTE 11T         | FAHEEM BHAI OFFICE              | 2025-05-08 | 6000    |
+| 1628     | NOTHING PHONE 2A PLUS  | SHAFI AHMED                     | 2025-06-14 | 14000   |
+| 1644     | SAMSUNG A04            | NASEEM BHAI                     | 2025-05-26 | 1000    |
+| 1701     | REDMI 9A               | NAZIM                           | 2025-05-09 | 1800    |
+| 1704     | IPHONE 7               | NAZIM                           | 2025-05-09 | 4000    |
+| 1803     | SAMSUNG M32            | NASEEM BHAI                     | 2025-06-02 | 2000    |
+| 1817     | SAMSUNG NOTE 10 PLUS   | FAHEEM BHAI OFFICE              | 2025-06-14 | 14000   |
+| 1899     | SAMSUNG S22 ULTRA      | YUSUF BHAI                      | 2025-06-16 | 22000   |
+| 1975     | IPHONE 12 MINI         | SAKET CUSTOMER BABLU BHAI       | 2025-06-15 | 9500    |
+| 1993     | ONEPLUS 13R            | AVZAL BHAI                      | 2025-06-14 | 13000   |
++----------+------------------------+---------------------------------+------------+---------+
+<!-- (your full table content goes here) -->
+  
+  </div>
+
+  <h2>TOTAL = 1,50,300</h2>
+
 
   <script>
-    const canvas = document.getElementById('radarCanvas');
-    const ctx = canvas.getContext('2d');
-    const tooltip = document.getElementById('tooltip');
+    let fontSize = 16;
 
-    const centerX = canvas.width / 2;
-    const centerY = canvas.height / 2;
-    const maxRadius = 280;
-    const levels = 7;
-    const labels = ['FAHEEM BHAI', 'NASEEM BHAI', 'FARHAT BHAI', 'NAZIM', 'SHAFI AHMED', 'SAKET CUSTOMER BABLU BHAI', 'AVZAL BHAI'];
-    const values = [88500, 8000, 18500, 5800, 14000, 9500, 13000]; // Actual ₹ values
-    const maxValue = Math.max(...values);
-    const angleStep = (Math.PI * 2) / labels.length;
+    function zoomIn() {
+      fontSize += 2;
+      document.getElementById('content').style.fontSize = fontSize + 'px';
+    }
 
-    let points = [];
-    let progress = 0;
-
-    function drawRadar() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      // draw grid
-      for (let level = 1; level <= levels; level++) {
-        const radius = (maxRadius / levels) * level;
-        ctx.beginPath();
-        for (let i = 0; i < labels.length; i++) {
-          const angle = i * angleStep;
-          const x = centerX + radius * Math.cos(angle);
-          const y = centerY + radius * Math.sin(angle);
-          if (i === 0) ctx.moveTo(x, y);
-          else ctx.lineTo(x, y);
-        }
-        ctx.closePath();
-        ctx.strokeStyle = 'rgba(0,0,0,0.05)';
-        ctx.stroke();
-      }
-
-      // center lines
-      for (let i = 0; i < labels.length; i++) {
-        const angle = i * angleStep;
-        const x = centerX + maxRadius * Math.cos(angle);
-        const y = centerY + maxRadius * Math.sin(angle);
-        ctx.beginPath();
-        ctx.moveTo(centerX, centerY);
-        ctx.lineTo(x, y);
-        ctx.strokeStyle = 'rgba(0,0,0,0.1)';
-        ctx.stroke();
-      }
-
-      // labels
-      ctx.fillStyle = '#444';
-      ctx.font = '14px Poppins';
-      for (let i = 0; i < labels.length; i++) {
-        const angle = i * angleStep;
-        const x = centerX + (maxRadius + 25) * Math.cos(angle);
-        const y = centerY + (maxRadius + 25) * Math.sin(angle);
-        ctx.textAlign = x < centerX ? 'right' : 'left';
-        ctx.fillText(labels[i], x, y);
-      }
-
-      // animated polygon
-      ctx.beginPath();
-      points = [];
-      for (let i = 0; i < values.length; i++) {
-        const angle = i * angleStep;
-        const radius = maxRadius * (values[i] / maxValue) * progress;
-        const x = centerX + radius * Math.cos(angle);
-        const y = centerY + radius * Math.sin(angle);
-        points.push({ x, y, label: labels[i], value: values[i] });
-        if (i === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
-      }
-      ctx.closePath();
-      ctx.strokeStyle = '#7f5af0';
-      ctx.lineWidth = 2;
-      ctx.shadowColor = '#7f5af0';
-      ctx.shadowBlur = 10;
-      ctx.stroke();
-      ctx.fillStyle = 'rgba(127, 90, 240, 0.2)';
-      ctx.fill();
-      ctx.shadowBlur = 0;
-
-      // data points
-      for (const pt of points) {
-        ctx.beginPath();
-        ctx.arc(pt.x, pt.y, 6, 0, Math.PI * 2);
-        ctx.fillStyle = '#ff6ac1';
-        ctx.shadowColor = '#ff6ac1';
-        ctx.shadowBlur = 10;
-        ctx.fill();
-        ctx.shadowBlur = 0;
+    function zoomOut() {
+      if (fontSize > 8) {
+        fontSize -= 2;
+        document.getElementById('content').style.fontSize = fontSize + 'px';
       }
     }
 
-    function animateRadar() {
-      if (progress < 1) {
-        progress += 0.015;
-        drawRadar();
-        requestAnimationFrame(animateRadar);
-      } else {
-        drawRadar(); // final frame
-      }
+    function resetZoom() {
+      fontSize = 16;
+      document.getElementById('content').style.fontSize = fontSize + 'px';
     }
-
-    // Tooltip on hover
-    canvas.addEventListener('mousemove', e => {
-      const rect = canvas.getBoundingClientRect();
-      const mx = e.clientX - rect.left;
-      const my = e.clientY - rect.top;
-
-      let found = false;
-      for (const pt of points) {
-        const dx = pt.x - mx;
-        const dy = pt.y - my;
-        if (Math.sqrt(dx * dx + dy * dy) < 10) {
-          tooltip.style.left = `${e.clientX}px`;
-          tooltip.style.top = `${e.clientY}px`;
-          tooltip.innerHTML = `${pt.label}: ₹${pt.value.toLocaleString()}`;
-          tooltip.style.display = 'block';
-          found = true;
-          break;
-        }
-      }
-      if (!found) {
-        tooltip.style.display = 'none';
-      }
-    });
-
-    // Click to open new.html
-    canvas.addEventListener('click', () => {
-      window.location.href = "pen.html";
-    });
-
-    animateRadar();
   </script>
 </body>
 </html>
