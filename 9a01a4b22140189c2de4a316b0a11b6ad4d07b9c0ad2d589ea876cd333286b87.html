@@ -1,1 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TICKET Sales vs Purchases</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 40px 20px;
+      text-align: center;
+      color: #000000;
+      background: linear-gradient(270deg, #ffb6b9, #fae3d9, #bbded6, #8ac6d1);
+      background-size: 800% 800%;
+      animation: gradientBG 20s ease infinite;
+    }
 
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 40px;
+      color: #1a1a1a;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+    }
+
+    .chart-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 60px;
+    }
+
+    .chart-container {
+      background-color: rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(10px);
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
+    }
+
+    .chart-container:hover {
+      transform: translateY(-5px);
+    }
+
+    canvas {
+      max-width: 100%;
+      height: 300px;
+    }
+
+    @media (max-width: 768px) {
+      .chart-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+  </style>
+</head>
+<body>
+
+  <h2>📊 TICKETS Sales vs Purchases Report (Jan - Dec)</h2>
+
+  <div class="chart-grid">
+    <div class="chart-container"><canvas id="purchasePieChart"></canvas></div>
+    <div class="chart-container"><canvas id="salesPieChart"></canvas></div>
+    <div class="chart-container"><canvas id="purchaseBarChart"></canvas></div>
+    <div class="chart-container"><canvas id="salesBarChart"></canvas></div>
+  </div>
+
+  <script>
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const saleAmounts = [266010, 376547, 202840, 333525, 483509, 0, 0, 0, 0, 0, 0, 0];
+    const saleQuantities = [13, 21, 20, 19, 31, 0, 0, 0, 0, 0, 0, 0];
+    const purchaseAmounts = [210839, 363181, 191193, 306066, 464385, 0, 0, 0, 0, 0, 0, 0];
+    const purchaseQuantities = [13, 21, 20, 19, 31, 0, 0, 0, 0, 0, 0, 0];
+
+    const softRedOranges = [
+      '#f8bbd0', '#f48fb1', '#f06292', '#ec407a',
+      '#e57373', '#ef9a9a', '#ffab91', '#ffccbc',
+      '#ffb74d', '#ffe082', '#d7ccc8', '#f0f4c3'
+    ];
+
+    const softGreenBlues = [
+      '#b2dfdb', '#80cbc4', '#4db6ac', '#26a69a',
+      '#81c784', '#aed581', '#dce775', '#b2ebf2',
+      '#b3e5fc', '#81d4fa', '#4fc3f7', '#64b5f6'
+    ];
+
+    const purchaseLinks = {
+      Jan: 'f3e00ea9bda55f4dc690714feb0e7c9fe7a924b463315f90b2b276c7101ddb79.html', Feb: '5fea9036a713274cb2ff813a3007f5b955de98eb12e5d34564697016b77bc935.html', Mar: 'a6a95127e141572f23f7841dedc780c98657abe84d7213a1ef905c5c3b350805.html', Apr: '8dcb276d6d7ebc0964e028e0c449698ca24096d15ae143d19e7bc5dfd481e3db.html',
+      May: '461ef46845388f81e2d7885bad6076907a5eb05eab0fd76883d179c787ae904b.html', Jun: 'p_jun.html', Jul: 'p_jul.html', Aug: 'p_aug.html',
+      Sep: 'p_sep.html', Oct: 'p_oct.html', Nov: 'p_nov.html', Dec: 'p_dec.html'
+    };
+
+    const saleLinks = {
+      Jan: '9b0f4126c6275e04418a408dd02c49c70ab61422c80df0b258c04a1e12bd7bd3.html', Feb: '673550da696d067f950c2365bb631dbe2b3ed8017227442ecc943b60bf6353c9.html', Mar: '3eb8e166ba48a02a9e7d959f6f8c263bfa99975ff9c0f8fe802dade5bf748038.html', Apr: '2f15e554a3deb289d70c6d33028848b8287278ab1956971064c2455d0a2b9a38.html',
+      May: 'cff46d8a907117ef5d705a3c26f3322648d21e1b227001a9f6bc60fcb627466a.html', Jun: 's_jun.html', Jul: 's_jul.html', Aug: 's_aug.html',
+      Sep: 's_sep.html', Oct: 's_oct.html', Nov: 's_nov.html', Dec: 's_dec.html'
+    };
+
+    // PURCHASE PIE
+    new Chart(document.getElementById('purchasePieChart'), {
+      type: 'pie',
+      data: {
+        labels: months,
+        datasets: [{
+          label: 'Purchase Amount',
+          data: purchaseAmounts,
+          backgroundColor: softRedOranges,
+          borderColor: '#000000',
+          borderWidth: 2
+        }]
+      },
+      options: {
+        onClick: (e, elements) => {
+          if (elements.length > 0) {
+            const chart = elements[0];
+            const label = months[chart.index];
+            const url = purchaseLinks[label];
+            if (url) window.location.href = url;
+          }
+        },
+        plugins: {
+          title: {
+            display: true,
+            text: '📥 Purchase Amount',
+            color: '#000000'
+          },
+          legend: {
+            labels: {
+              color: '#000000'
+            }
+          }
+        }
+      }
+    });
+
+    // SALES PIE
+    new Chart(document.getElementById('salesPieChart'), {
+      type: 'pie',
+      data: {
+        labels: months,
+        datasets: [{
+          label: 'Sale Amount',
+          data: saleAmounts,
+          backgroundColor: softGreenBlues,
+          borderColor: '#000000',
+          borderWidth: 2
+        }]
+      },
+      options: {
+        onClick: (e, elements) => {
+          if (elements.length > 0) {
+            const chart = elements[0];
+            const label = months[chart.index];
+            const url = saleLinks[label];
+            if (url) window.location.href = url;
+          }
+        },
+        plugins: {
+          title: {
+            display: true,
+            text: '📤 Sales Amount',
+            color: '#000000'
+          },
+          legend: {
+            labels: {
+              color: '#000000'
+            }
+          }
+        }
+      }
+    });
+
+    // PURCHASE BAR
+    new Chart(document.getElementById('purchaseBarChart'), {
+      type: 'bar',
+      data: {
+        labels: months,
+        datasets: [{
+          label: 'Purchase Quantity',
+          data: purchaseQuantities,
+          backgroundColor: softRedOranges,
+          borderRadius: 6
+        }]
+      },
+      options: {
+        plugins: {
+          title: {
+            display: true,
+            text: '📦 Purchase Quantity',
+            color: '#000000'
+          },
+          legend: { display: false }
+        },
+        scales: {
+          x: { ticks: { color: '#000000' }, grid: { color: '#444' } },
+          y: { ticks: { color: '#000000' }, grid: { color: '#444' }, beginAtZero: true }
+        }
+      }
+    });
+
+    // SALES BAR
+    new Chart(document.getElementById('salesBarChart'), {
+      type: 'bar',
+      data: {
+        labels: months,
+        datasets: [{
+          label: 'Sale Quantity',
+          data: saleQuantities,
+          backgroundColor: softGreenBlues,
+          borderRadius: 6
+        }]
+      },
+      options: {
+        plugins: {
+          title: {
+            display: true,
+            text: '📈 Sales Quantity',
+            color: '#000000'
+          },
+          legend: { display: false }
+        },
+        scales: {
+          x: { ticks: { color: '#000000' }, grid: { color: '#444' } },
+          y: { ticks: { color: '#000000' }, grid: { color: '#444' }, beginAtZero: true }
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
