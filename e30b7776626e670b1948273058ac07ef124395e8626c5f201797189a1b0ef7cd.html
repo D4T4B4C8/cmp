@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Text Viewer</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 1em;
+      font-family: 'Courier New', monospace;
+      background: #f4f4f4;
+      color: #111; /* dark black for better contrast */
+    }
+
+    #controls {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: white;
+      padding: 6px 10px;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      z-index: 1000;
+    }
+
+    button {
+      padding: 6px 12px;
+      margin: 0 4px;
+      font-size: 14px;
+      cursor: pointer;
+      background-color: #111;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #333;
+    }
+
+    #content {
+      white-space: pre-wrap;
+      font-size: 16px;
+      line-height: 1.6;
+      padding-top: 4em;
+      font-feature-settings: "tnum"; /* enable tabular numbers if supported */
+      font-variant-numeric: tabular-nums;
+    }
+
+    h5 {
+      font-weight: bold;
+      font-family: monospace;
+      color: #000;
+      margin-left: 1em;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="controls">
+    <button onclick="zoomIn()">Zoom In</button>
+    <button onclick="zoomOut()">Zoom Out</button>
+    <button onclick="resetZoom()">Reset</button>
+  </div>
+
+  <div id="content">
+
+<!-- Paste your .txt content between these lines -->
+<h1> MAY TICKETS PURCHASE AND SALE </h1>
+<h3>
+
+DATE    NAME                          GR RATES  SALE RATES  PENDING/RECEIVED      STAAF
+1-May   MASIHULLAH AND MOJBULLAH      19478     20000       RECEIVED  BILL NO 13  STAAF
+1-May   NARENDER CHOUDHARY            14860     15500       RECEIVED  BILL NO 13  STAAF
+2-May   MOHD ZAID                     9648      10000       RECEIVED  BILL NO 13  STAAF
+5-May   NARENDER CHOUDHARY            13750     14200       PENDING               STAAF
+9-May   NARENDER CHOUDHARY            9930      10500       PENDING               STAAF
+10-May  SAQLAIN S                     21307     21800       PENDING               NASEEM BHAI
+10-May  SHAHRUK ALI                   17653     18300       PENDING               NASEEM BHAI
+10-May  MOHAMMAD MUZZMIL              17653     18300       PENDING               NASEEM BHAI
+11-May  NARENDER CHOUDHARY            13750     14200       PENDING               STAAF
+11-May  AMIT RANA&NARENDER CHOUDHARY  7000      7500        PENDING               STAAF
+12-May  NARENDER CHOUDHARY            7212      7500        PENDING               STAAF
+12-May  NARENDER CHOUDHARY            5952      6350        PENDING               STAAF
+12-May  NARENDER CHOUDHARY            8298      8650        PENDING               STAAF
+12-May  NARENDER CHOUDHARY            6517      7000        PENDING               STAAF
+12-May  QUAMAR ALAM, RAVI RAJ, SHALU  26558     27900       RECEVIED              FHAEEM BHAI
+12-May  QUAMAR ALAM, RAVI RAJ, SHALU  16500     18900       RECEVIED              FAHEEM BHAI
+12-May  NARENDER CHOUDHARY            5755      6000        RECEVIDE              STAAF
+16-May  NARENDER CHOUDHARY            7136      7500        RECEVIDE              STAAF
+16-May  NARENDER CHOUDHARY            3289      3289        RECEVIDE              STAAF
+16-May  NARENDER CHOUDHARY            9313      10000       RECEVIDE              STAAF
+18-May  NARENDER CHOUDHARY            200       200         RECEVIDE              STAAF
+19-May  NARENDER CHOUDHARY            14408     15000       RECEVIDE              STAAF
+20-May  SHEKHAR KUMAR                 14300     15370       RECEIVED              CUST
+21-May  SHEKHAR KUMAR                 16000     17200       RECEIVED              CUST
+22-May  ARSHAD BHAI 3 PAX             72929     75000       RECEVIED              CUST
+22-May  NARENDER CHOUDHARY            12430     12850       PENDING               STAAF
+24-May  NARENDER CHOUDHARY            200       200         RECEVIDE              STAAF
+24-May  NARENDER CHOUDHARY            300       300         RECEVIDE              SATTF
+25-May  NARENDER CHOUDHARY            10190     10500       RECEVIDE              STAAF
+28-May  ZAREEFA HASAN 3 PAX           69773     71000       RECEIVED              FAHEEM BHAI
+29-May  LOK BAHADUR NEPALI            12096     12500       RECEVIED              CUST
+<!-- (your full table content goes here) -->
+  </div>
+
+
+
+  <script>
+    let fontSize = 16;
+
+    function zoomIn() {
+      fontSize += 2;
+      document.getElementById('content').style.fontSize = fontSize + 'px';
+    }
+
+    function zoomOut() {
+      if (fontSize > 8) {
+        fontSize -= 2;
+        document.getElementById('content').style.fontSize = fontSize + 'px';
+      }
+    }
+
+    function resetZoom() {
+      fontSize = 16;
+      document.getElementById('content').style.fontSize = fontSize + 'px';
+    }
+  </script>
+</body>
+</html>
