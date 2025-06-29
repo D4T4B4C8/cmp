@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Customer Directory by Month</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(120deg, #e0c3fc, #8ec5fc);
+      color: #333;
+      padding: 60px 20px;
+      animation: fadeIn 1s ease-in;
+    }
+    h1 {
+      text-align: center;
+      font-size: 3.5rem;
+      margin-bottom: 30px;
+      color: #2e1065;
+    }
+    h2 {
+      font-size: 2rem;
+      color: #5b21b6;
+      margin: 40px 0 20px;
+      text-align: center;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 25px;
+      max-width: 1200px;
+      margin: auto;
+      margin-bottom: 40px;
+    }
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 25px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 1rem;
+      min-height: 100px;
+      background-image: linear-gradient(145deg, #f7f9ff, #ecf3ff);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      transition: transform 0.3s;
+      animation: slideUpFade 0.6s ease both;
+    }
+    .card:hover {
+      transform: scale(1.05);
+    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes slideUpFade { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  </style>
+</head>
+<body>
+  <h1>Customer Directory</h1>
+
+  <h2>January 2025</h2>
+  <div class="grid">
+    <div class="card">SHAWAIZ AKHTER</div>
+    <div class="card">ROOHI NAZ</div>
+    <div class="card">SHAHEEN ALI, ASHAR, ARSHIA</div>
+    <div class="card">ANAS YAWER, YASHAB</div>
+    <div class="card">SHAVEZ AKHTAR</div>
+    <div class="card">ANAS YAWER, YASHAB</div>
+    <div class="card">ANAS YAWER, YASHAB</div>
+    <div class="card">ANAS YAWER, YASHAB</div>
+    <div class="card">ANAS YAWER, YASHAB</div>
+    <div class="card">ADNAN & 4 (5) PAX TOTAL</div>
+    <div class="card">SARTAJ BHAI VISA AND FLIGHT</div>
+    <div class="card">WASEEM BHAI</div>
+    <div class="card">WASEEM BHAI</div>
+    
+  </div>
+
+  <h2>February 2025</h2>
+  <div class="grid">
+    <div class="card">MD MUJEEB</div>
+    <div class="card">ARBAZ , MAHVISH</div>
+    <div class="card">ARBAZ</div>
+    <div class="card">WASEEM BHAI</div>
+    <div class="card">NAVED AREEB</div>
+    <div class="card">FAISAL AREEB</div>
+    <div class="card">MEHMOOD AREEB</div>
+    <div class="card">WASEEM AHMED</div>
+    <div class="card">CHETAN LAXMICHAND</div>
+    <div class="card">CHETAN LAXMICHAND</div>
+    <div class="card">RUTBA MUZAFFAR</div>
+    <div class="card">HAMMAD BIN SAAD</div>
+    <div class="card">KAMYA SHARMA, KISHU, BHAWYA</div>
+    <div class="card">MOHD AZEEM</div>
+    <div class="card">MOHD MUJEEB</div>
+    <div class="card">FAHEEM BHAI</div>
+    <div class="card">NUPUR ATMAN</div>
+    <div class="card">NUPUR ATMAN</div>
+    <div class="card">WASEEM SIR FAMILY</div>
+    <div class="card">ROOHI NAZ MAM</div>
+    <div class="card">HUDA NAEEM</div>
+    
+  </div>
+
+  <h2>March 2025</h2>
+  <div class="grid">
+    <div class="card">FAHEEM BHAI</div>
+    <div class="card">ABDUL QADIR</div>
+    <div class="card">MD ZAHID</div>
+    <div class="card">WASEEM SIR</div>
+    <div class="card">NARENDER</div>
+    <div class="card">ROOHI MAM</div>
+    <div class="card">KAMYA SHARMA, KISHU, BHAWYA</div>
+    <div class="card">WASEEM SIR</div>
+    <div class="card">ROOHI NAZ</div>
+    <div class="card">ROOHI NAZ</div>
+    <div class="card">SARTAJ BHAI</div>
+    <div class="card">NARENDAR</div>
+    <div class="card">MR ADIL MAHMOOD</div>
+    <div class="card">MR MOHAMMAD MASAR</div>
+    <div class="card">OWAIS WASIM</div>
+    <div class="card">HAMDAAN,HUSSAN</div>
+    <div class="card">WRONG</div>
+    
+  </div>
+
+  <h2>April 2025</h2>
+  <div class="grid">
+    <div class="card">MOHAMMAD PARVEZ</div>
+    <div class="card">HEEBA NAAZ</div>
+    <div class="card">OWIS WASIM</div>
+    <div class="card">WASEEM AHMED</div>
+    <div class="card">ROOHI NAZ</div>
+    <div class="card">WASEEM AHMED</div>
+    <div class="card">CARPIO SUZETTE</div>
+    <div class="card">MS SUZETTE CARPIO DELA CRUZ</div>
+    <div class="card">NARENDER</div>
+    <div class="card">NARENDER</div>
+    <div class="card">MOHD SHAHID</div>
+    <div class="card">AMOGHA SAHU</div>
+    <div class="card">FEROZ AKTHER</div>
+    <div class="card">FEROZ AKTHER</div>
+    <div class="card">WASIM</div>
+    <div class="card">MOHD ZAID</div>
+    <div class="card">MANISH KUMAR</div>
+    
+  </div>
+
+  <h2>May 2025</h2>
+  <div class="grid">
+    <div class="card">NARENDER CHOUDHARY</div>
+    <div class="card">MASIHULLAH AND MOJBULLAH</div>
+    <div class="card">MOHD ZAID</div>
+    <div class="card">NARENDER CHOUDHARY</div>
+    <div class="card">NARENDER CHOUDHARY</div>
+    <div class="card">SHAHRUK ALI</div>
+    <div class="card">SAQLAIN S</div>
+    <div class="card">MOHAMMAD MUZZMIL</div>
+    <div class="card">NARENDER CHOUDHARY</div>
+    <div class="card">AMIT RANA &amp; NARENDER CHOUDHARY</div>
+    <div class="card">QUAMAR ALAM, RAVI RAJ, SHALU</div>
+    <div class="card">QUAMAR ALAM, RAVI RAJ, SHALU</div>
+    <div class="card">NARENDER CHOUDHARY</div>
+    <div class="card">NARENDER CHOUDHARY</div>
+    <div class="card">NARENDER CHOUDHARY</div>
+    <div class="card">NARENDER CHOUDHARY</div>
+    <div class="card">NARENDER CHOUDHARY</div>
+    <div class="card">SHEKHAR KUMAR</div>
+    <div class="card">SHEKHAR KUMAR</div>
+    <div class="card">ARSHAD BHAI 3 PAX</div>
+    <div class="card">ZAREEFA HASAN &amp; 2 PAX</div>
+    <div class="card">LOK BAHADUR NEPALI</div>
+    
+  </div>
+
+</body>
+</html>
