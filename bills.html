@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Advanced Bill Gallery</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #fce3ec, #f9f7fc);
+      min-height: 100vh;
+      overflow-x: hidden;
+      animation: fadeIn 1s ease-in;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 40px 0 20px;
+      color: #333;
+      font-size: 2.2rem;
+      background: linear-gradient(to right, #000000, #000000);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: fadeSlide 1s ease-in-out;
+    }
+
+    .date-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+      animation: slideUp 1.5s ease-in-out;
+    }
+
+    .date-item {
+      background: #fff;
+      border: 2px solid #ddd;
+      border-radius: 16px;
+      padding: 18px 28px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+      animation: floatIn 0.6s ease-in-out;
+    }
+
+    .date-item:hover {
+      transform: scale(1.07);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .modal, .gallery {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 40px 20px;
+      z-index: 1000;
+      overflow-y: auto;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .modal h2, .gallery h2 {
+      color: white;
+      margin-bottom: 20px;
+      animation: fadeSlide 0.8s ease-in-out;
+    }
+
+    .modal-buttons {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      animation: slideUp 1s ease-in-out;
+    }
+
+    .btn {
+      background: linear-gradient(to right, #dff9fb, #c7ecee);
+      border: none;
+      padding: 12px 26px;
+      font-size: 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      animation: floatIn 0.8s ease-in-out;
+    }
+
+    .btn:hover {
+      background: linear-gradient(to right, #c7ecee, #dff9fb);
+      transform: scale(1.05);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      max-width: 1200px;
+      width: 100%;
+      margin-top: 20px;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .gallery-grid img {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      animation: fadePop 0.7s ease-in-out;
+    }
+
+    .gallery-grid img:hover {
+      transform: none;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes floatIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes fadePop {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <h1>Select a Date to View Bills</h1>
+
+  <div class="date-list" id="dateList"></div>
+
+  <div class="modal" id="choiceModal">
+    <h2>Choose Bill Type</h2>
+    <div class="modal-buttons">
+      <button class="btn" onclick="openGallery('purchase')">Purchase</button>
+      <button class="btn" onclick="openGallery('sales')">Sales</button>
+    </div>
+    <button class="btn" style="margin-top: 30px;" onclick="closeChoice()">Cancel</button>
+  </div>
+
+  <div class="modal gallery" id="galleryModal">
+    <h2 id="galleryTitle">Gallery</h2>
+    <div class="gallery-grid" id="galleryGrid"></div>
+  </div>
+
+  <script>
+    const availableDates = ["2025-06-01","2025-06-02", "2025-06-03", "2025-06-04","2025-06-05","2025-06-06","2025-06-08","2025-06-11","2025-06-12","2025-06-14","2025-06-15","2025-06-16","2025-06-17","2025-06-18","2025-06-19","2025-06-21","2025-06-22","2025-06-24","2025-06-25","2025-06-26","2025-06-27","2025-06-28"];
+
+    const imageFiles = {
+      "2025-06-01": { purchase: [], sales: ["bill1.png", "bill2.png", "bill3.png"] },
+      "2025-06-02": { purchase: [], sales: ["bill4.png", "bill5.png"] },
+      "2025-06-03": { purchase: ["p1.jpg"], sales: ["bill6.png", "bill7.png","bill8.png","bill9.png","bill10.png"] },
+      "2025-06-04": { purchase: [], sales: ['bill11.png','bill12.png'] },
+      "2025-06-05": { purchase: [], sales: ['bill13.png','bill14.png','bill15.png','bill16.png'] },
+      "2025-06-06": { purchase: [], sales: ['bill17.png'] },
+      "2025-06-08": { purchase: [], sales: ['bill18.png'] },
+      "2025-06-11": { purchase: [], sales: ['bill19.png'] },
+      "2025-06-12": { purchase: [], sales: ['bill20.png','bill21.png'] },
+      "2025-06-14": { purchase: [], sales: ['bill22.png','bill23.png'] },
+      "2025-06-15": { purchase: [], sales: ['bill24.png','bill25.png','bill26.png'] },
+      "2025-06-16": { purchase: [], sales: ['bill27.png'] },
+      "2025-06-17": { purchase: [], sales: ['bill28.png'] },
+      "2025-06-18": { purchase: [], sales: ['bill29.png'] },
+      "2025-06-19": { purchase: [], sales: ['bill30.png','bill31.png'] },
+      "2025-06-21": { purchase: [], sales: ['bill32.png','bill33.png','34.png'] },
+      "2025-06-22": { purchase: [], sales: ['bill35.png'] },
+      "2025-06-24": { purchase: ['p2.jpg'], sales: [] },
+      "2025-06-25": { purchase: ['p3.jpg'], sales: ['bill36.png','bill37.png'] },
+      "2025-06-26": { purchase: [], sales: ['bill38.png'] },
+      "2025-06-27": { purchase: [], sales: ['bill39.png'] },
+      "2025-06-28": { purchase: [], sales: ['bill40.png','bill41.png'] }
+      
+    };
+
+    let selectedDate = '';
+
+    const dateList = document.getElementById('dateList');
+    const choiceModal = document.getElementById('choiceModal');
+    const galleryModal = document.getElementById('galleryModal');
+    const galleryGrid = document.getElementById('galleryGrid');
+    const galleryTitle = document.getElementById('galleryTitle');
+
+    availableDates.forEach(date => {
+      const btn = document.createElement('div');
+      btn.className = 'date-item';
+      btn.textContent = date;
+
+      const hasPurchase = imageFiles[date]?.purchase?.length > 0;
+      const hasSales = imageFiles[date]?.sales?.length > 0;
+
+      if (hasPurchase && !hasSales) {
+        btn.style.background = '#ffd6d6';
+      } else if (!hasPurchase && hasSales) {
+        btn.style.background = '#d6ffd6';
+      } else if (hasPurchase && hasSales) {
+        btn.style.background = 'linear-gradient(to right, #ffd6d6, #d6ffd6)';
+      }
+
+      btn.onclick = () => {
+        selectedDate = date;
+        choiceModal.style.display = 'flex';
+      };
+
+      dateList.appendChild(btn);
+    });
+
+    function openGallery(type) {
+      galleryGrid.innerHTML = '';
+      const files = (imageFiles[selectedDate] && imageFiles[selectedDate][type]) || [];
+      galleryTitle.textContent = `${type.toUpperCase()} - ${selectedDate}`;
+
+      files.forEach(name => {
+        const img = document.createElement('img');
+        img.src = `bills/${name}`;
+        img.alt = name;
+        img.onclick = () => window.open(name, '_blank');
+        galleryGrid.appendChild(img);
+      });
+
+      choiceModal.style.display = 'none';
+      galleryModal.style.display = 'flex';
+      history.pushState({ galleryOpen: true }, '');
+    }
+
+    function closeChoice() {
+      choiceModal.style.display = 'none';
+    }
+
+    window.addEventListener('popstate', () => {
+      if (galleryModal.style.display === 'flex') {
+        galleryModal.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>
