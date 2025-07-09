@@ -241,7 +241,7 @@
         const img = document.createElement('img');
         img.src = `bills/${name}`;
         img.alt = name;
-        img.onclick = () => window.open(name, '_blank');
+        img.onclick = () => window.open(`bills/${name}`, '_blank');
         galleryGrid.appendChild(img);
       });
 
