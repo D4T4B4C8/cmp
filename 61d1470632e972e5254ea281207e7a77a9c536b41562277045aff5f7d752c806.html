@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Office Workforce</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(to right, #eef1f5, #d7dee9);
+      padding: 40px 20px;
+      color: #2e3a59;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.8rem;
+      margin-bottom: 50px;
+      color: #1e2a3a;
+      letter-spacing: 2px;
+      font-weight: 700;
+    }
+
+    .team-container {
+      display: flex;
+      flex-direction: column;
+      gap: 60px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .employee {
+      display: flex;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .employee:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 50px rgba(0, 0, 0, 0.08);
+    }
+
+    .details {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 40px;
+      border-right: 1px solid #e4e7ed;
+      background: #fafbfc;
+    }
+
+    .details p {
+      margin-bottom: 20px;
+      font-size: 1.15rem;
+      color: #4a5568;
+      border-left: 4px solid transparent;
+      padding-left: 10px;
+    }
+
+    .details p strong {
+      color: #446de4;
+      font-weight: 600;
+    }
+
+    .photo {
+      flex: 1;
+      min-width: 380px;
+      max-width: 500px;
+      height: auto;
+      background: #f0f4f8;
+    }
+
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .photo:hover img {
+      transform: scale(1.04);
+    }
+
+    @media (max-width: 900px) {
+      .employee {
+        flex-direction: column-reverse;
+      }
+
+      .details {
+        border-right: none;
+        border-top: 1px solid #e4e7ed;
+        padding: 30px;
+        align-items: center;
+        text-align: center;
+      }
+
+      .photo {
+        width: 100%;
+        height: 300px;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <h1>Office Workforce</h1>
+
+  <div class="team-container">
+    <div class="employee">
+      <div class="details">
+        <p><strong>NAME:</strong> NASEEM AHMED</p>
+        <p><strong>PHONE:</strong> 7055027251</p>
+        <p><strong>JOB ROLE:</strong> SHOP HEAD</p>
+      </div>
+      <div class="photo">
+        <img src="naseem.jpg" alt="Employee 1" />
+      </div>
+    </div>
+
+    <div class="employee">
+      <div class="details">
+        <p><strong>NAME:</strong> FAISAL FAROZ</p>
+        <p><strong>PHONE:</strong> 8826852913</p>
+        <p><strong>JOB ROLE:</strong> TICKET HANDLING</p>
+      </div>
+      <div class="photo">
+        <img src="faisal.jpg" alt="Employee 2" />
+      </div>
+    </div>
+
+    <div class="employee">
+      <div class="details">
+        <p><strong>NAME:</strong> AREEB KHAN</p>
+        <p><strong>PHONE:</strong> 9990220664</p>
+        <p><strong>JOB ROLE:</strong> TICKET HANDLING</p>
+      </div>
+      <div class="photo">
+        <img src="areeb.jpg" alt="Employee 3" />
+      </div>
+    </div>
+
+    <div class="employee">
+      <div class="details">
+        <p><strong>NAME:</strong> ASAD</p>
+        <p><strong>PHONE:</strong> 6399772715</p>
+        <p><strong>JOB ROLE:</strong> OFFICE BOY</p>
+      </div>
+      <div class="photo">
+        <img src="asad.jpg" alt="Employee 4" />
+      </div>
+    </div>
+
+    <div class="employee">
+      <div class="details">
+        <p><strong>NAME:</strong> SEEMA</p>
+        <p><strong>PHONE:</strong> 8</p>
+        <p><strong>JOB ROLE:</strong> MAID</p>
+      </div>
+      <div class="photo">
+        <img src="seema.jpg" alt="Employee 5" />
+      </div>
+    </div>
+  </div>
+</body>
+</html>
