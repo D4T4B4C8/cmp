@@ -1,63 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Monthly Sales Overview</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Monthly Sales Report</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    html, body {
+    * {
       margin: 0;
       padding: 0;
-      height: 100%;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #fdfbfb, #ebedee);
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100vw;
+      height: 100vh;
+      font-family: 'Segoe UI', 'Poppins', sans-serif;
+      background: linear-gradient(to right top, #fdfcfb, #e2d1f9, #c2d3f4);
+      overflow-x: hidden;
       color: #333;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
     }
+
     h1 {
-      font-size: 2.8rem;
-      color: #4b0082;
-      margin: 30px 0;
-      animation: fadeIn 1s ease-out;
+      font-size: 3rem;
+      text-align: center;
+      padding: 30px 0;
+      background: linear-gradient(90deg, #6a11cb, #2575fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+      letter-spacing: 2px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(4px);
     }
-    .chart-container {
-      width: 1200px;
-      display: flex;
-      flex-direction: column;
-      gap: 40px;
-      animation: slideUp 1.2s ease-in;
+
+    .fullchart {
+      width: 100vw;
+      height: calc(100vh - 100px);
+      padding: 25px;
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(6px);
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.05);
     }
+
     canvas {
       width: 100% !important;
-      height: 500px !important;
-      background: #ffffff;
+      height: 100% !important;
       border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-      padding: 10px;
+      background: #ffffffdd;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease;
     }
-    .tripjackChart {
-      background: #f8fff4;
-      border: 2px solid #d3f8d3;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(40px); }
-      to { opacity: 1; transform: translateY(0); }
+
+    canvas:hover {
+      transform: scale(1.005);
     }
   </style>
 </head>
 <body>
-  <h1>Monthly Report</h1>
-  <div class="chart-container">
+
+  <h1>📊 Monthly Sales Overview</h1>
+
+  <div class="fullchart">
     <canvas id="outsiderChart"></canvas>
-    <canvas id="tripjackChart" class="tripjackChart"></canvas>
+  </div>
+  <div class="fullchart">
+    <canvas id="tripjackChart"></canvas>
   </div>
 
   <script>
@@ -68,17 +78,20 @@
       datasets: [
         {
           label: 'Sale',
-          backgroundColor: '#a2d2ff',
+          backgroundColor: '#84d8f3',
+          hoverBackgroundColor: '#68c7ec',
           data: [65500, 148000, 92820, 156025, 122770, 138500, 0, 0, 0, 0, 0, 0]
         },
         {
           label: 'Purchase',
-          backgroundColor: '#ffc6ff',
+          backgroundColor: '#f7aef8',
+          hoverBackgroundColor: '#e291e9',
           data: [61500, 143500, 87783, 137650, 116338, 132124, 0, 0, 0, 0, 0, 0]
         },
         {
           label: 'Profit',
-          backgroundColor: '#caffbf',
+          backgroundColor: '#b9fbc0',
+          hoverBackgroundColor: '#a3f7ad',
           data: [4000, 4500, 5037, 18375, 6432, 6376, 0, 0, 0, 0, 0, 0]
         }
       ]
@@ -89,100 +102,109 @@
       datasets: [
         {
           label: 'Sale',
-          backgroundColor: '#fcd5ce',
+          backgroundColor: '#ffd6a5',
+          hoverBackgroundColor: '#ffc58a',
           data: [200510, 228547, 110125, 177500, 367639, 123887, 0, 0, 0, 0, 0, 0]
         },
         {
           label: 'Purchase',
-          backgroundColor: '#d0f4de',
+          backgroundColor: '#caffbf',
+          hoverBackgroundColor: '#aefca9',
           data: [185073, 219681, 103410, 168416, 354578, 119115, 0, 0, 0, 0, 0, 0]
         },
         {
           label: 'Profit',
-          backgroundColor: '#ffdab9',
+          backgroundColor: '#ffadad',
+          hoverBackgroundColor: '#fc8989',
           data: [15437, 8866, 6715, 9084, 13061, 4772, 0, 0, 0, 0, 0, 0]
         }
       ]
     };
 
-    function createChart(id, data, prefix) {
-      const ctx = document.getElementById(id).getContext('2d');
-      return new Chart(ctx, {
+    function createBarChart(canvasId, chartData, titleText) {
+      const ctx = document.getElementById(canvasId).getContext('2d');
+      new Chart(ctx, {
         type: 'bar',
-        data: data,
+        data: chartData,
         options: {
-          responsive: false,
+          responsive: true,
           maintainAspectRatio: false,
-          onClick: (e, elements) => {
-            if (elements.length > 0) {
-              const index = elements[0].index;
-              const month = months[index].toLowerCase();
-              window.open(`${prefix}_${month}.html`, '_blank');
-            }
-          },
           animation: {
-            duration: 1000,
-            easing: 'easeOutBounce'
+            duration: 1300,
+            easing: 'easeOutElastic'
           },
           plugins: {
             title: {
               display: true,
-              text: prefix === 'out' ? 'Outsider' : 'Tripjack',
+              text: titleText,
               font: {
-                size: 22
+                size: 26,
+                weight: 'bold'
               },
-              color: '#3b0066'
+              color: '#3d0066',
+              padding: {
+                top: 10,
+                bottom: 20
+              }
             },
             legend: {
               labels: {
-                color: '#333',
+                color: '#444',
                 font: {
-                  size: 14
+                  size: 14,
+                  family: 'Segoe UI'
                 }
               }
             },
             tooltip: {
-              enabled: true,
-              mode: 'index',
-              intersect: false,
+              backgroundColor: '#ffffffee',
+              borderColor: '#ccc',
+              borderWidth: 1,
+              titleColor: '#000',
+              bodyColor: '#000',
               callbacks: {
-                label: function(context) {
-                  return `${context.dataset.label}: ₹${context.raw}`;
-                }
+                label: context => `${context.dataset.label}: ₹${context.raw}`
               }
             }
           },
-          interaction: {
-            mode: 'nearest',
-            axis: 'x',
-            intersect: false
-          },
           scales: {
             x: {
-              stacked: false,
-              ticks: { color: '#555', font: { size: 13 } },
-              grid: { display: false }
+              ticks: {
+                color: '#333',
+                font: {
+                  size: 14,
+                  weight: '500'
+                }
+              },
+              grid: {
+                display: false
+              }
             },
             y: {
               beginAtZero: true,
-              stacked: false,
-              ticks: { color: '#555', stepSize: 2 },
-              grid: { color: '#eee' }
+              ticks: {
+                color: '#333',
+                font: {
+                  size: 13
+                }
+              },
+              grid: {
+                color: '#e6e6e6'
+              }
             }
           },
           elements: {
             bar: {
-              borderRadius: 4,
-              borderSkipped: false,
-              minBarLength: 2
+              borderRadius: 10,
+              borderSkipped: false
             }
           }
         }
       });
     }
 
-    createChart('outsiderChart', outsiderData, 'out');
-    createChart('tripjackChart', tripjackData, 'trip');
+    createBarChart('outsiderChart', outsiderData, '🌐 Outsider Overview');
+    createBarChart('tripjackChart', tripjackData, '🧳 Tripjack Overview');
   </script>
 </body>
 </html>
