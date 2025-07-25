@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Expenses</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f7fa;
+      color: #333;
+    }
+
+    .month-buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 20px;
+      gap: 10px;
+    }
+
+    .month-buttons button {
+      padding: 10px 20px;
+      border: none;
+      background-color: #e0e7ff;
+      color: #3b3b98;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .month-buttons button.active {
+      background-color: #3b3b98;
+      color: #fff;
+    }
+
+    .chart-container {
+      width: 100%;
+      max-width: 2000px;
+      margin: 100px auto;
+    }
+  </style>
+</head>
+<body>
+
+<div class="month-buttons" id="monthButtons"></div>
+
+<div class="chart-container">
+  <canvas id="expensesChart" height="300"></canvas>
+</div>
+
+<script>
+  const months = [
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+  ];
+
+  const currentMonth = new Date().toLocaleString('default', { month: 'short' });
+
+  const expensesData = {
+    "Jul": {
+      labels: ["ROOM RENT (NASEEM AHMED)", "ROOM BIJLI BILL (NASEEM AHMED", "J-15 OFFICE RENT (ROAMIO)", "J-15 OFFICE BIJLI BILL (ROAMIO)","J-15 OFFICE WIFI (ROAMIO)","ALKA OFFICE  RENT (FAD)","ALKA OFFICE  BIJLI BILL (FAD)","ALKA OFFICE WIFI (FAD)","ALKA OFFICE NEWS PAPER (FAD)","OFFICE EXP (WATER-TEA-COLD DRINK)","ASAD SALARY","AREEB SALARY","FAISAL SALARY","MAID SALARY","NASEEM SALARY"],
+      data: [12000, 500, 13750, 3000, 9897.84, 26250,4000,1000,600,8400,12000,15000,15000,5000,25000]
+    }
+    // Add more months if needed
+  };
+
+  const monthContainer = document.getElementById("monthButtons");
+
+  months.forEach(month => {
+    const btn = document.createElement("button");
+    btn.textContent = month;
+    btn.classList.toggle("active", month === currentMonth);
+    btn.onclick = () => loadChart(month);
+    monthContainer.appendChild(btn);
+  });
+
+  let chart;
+
+  function loadChart(month) {
+    document.querySelectorAll(".month-buttons button").forEach(btn => {
+      btn.classList.toggle("active", btn.textContent === month);
+    });
+
+    const ctx = document.getElementById('expensesChart').getContext('2d');
+    const data = expensesData[month] || { labels: [], data: [] };
+
+    if (chart) chart.destroy();
+
+    chart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: data.labels,
+        datasets: [{
+          label: 'Expenses',
+          data: data.data,
+          backgroundColor: [
+            '#ffb6b9', '#a0e7e5', '#b4f8c8', '#fbe7c6'
+          ],
+          borderRadius: 20,
+          barThickness: 70,           // Increased bar thickness
+          categoryPercentage: 0.8,    // Controls spacing between categories
+          barPercentage: 1.0          // Full width bar within category
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        plugins: {
+          legend: { display: false },
+          tooltip: { enabled: true }
+        },
+        scales: {
+          x: {
+            ticks: {
+              color: '#555'
+            },
+            grid: {
+              color: '#ddd'
+            }
+          },
+          y: {
+            ticks: {
+              font: {
+                size: 23,
+                weight: 'bold'
+              },
+              color: '#333',
+              padding: 5     // Less padding between bar and label
+            },
+            grid: {
+              display: false
+            }
+          }
+        }
+      }
+    });
+    
+  }
+
+  loadChart(currentMonth);
+</script>
+
+</body>
+</html>
