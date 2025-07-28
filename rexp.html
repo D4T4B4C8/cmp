@@ -153,14 +153,20 @@
       combined.sort((a, b) => b.value - a.value);
     }
 
-    const labels = combined.map(item => item.label);
-    const data = combined.map(item => item.value);
+    let labels = combined.map(item => item.label);
+    let data = combined.map(item => item.value);
 
-    const colors = [
+    const total = data.reduce((a, b) => a + b, 0);
+    labels.push("💰 TOTAL");
+    data.push(total);
+
+    const baseColors = [
       '#ffb6b9', '#a0e7e5', '#b4f8c8', '#fbe7c6', '#ffdac1',
       '#e2f0cb', '#b5ead7', '#c7ceea', '#f7d6e0', '#d0e8f2',
       '#c2f9bb', '#fbe4c3', '#ffd6a5', '#fdffb6', '#caffbf'
     ];
+    const totalColor = '#4f46e5';
+    const colors = [...baseColors.slice(0, data.length - 1), totalColor];
 
     if (chart) chart.destroy();
 
@@ -204,7 +210,13 @@
             ticks: {
               font: { size: 23, weight: 'bold' },
               color: '#333',
-              padding: 5
+              padding: 5,
+              callback: function (val, index) {
+                if (labels[index] === "💰 TOTAL") {
+                  return "👉 " + labels[index];
+                }
+                return labels[index];
+              }
             },
             grid: { display: false }
           }
