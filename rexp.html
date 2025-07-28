@@ -83,7 +83,10 @@
     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
   ];
 
-  const currentMonth = new Date().toLocaleString('default', { month: 'short' });
+  const now = new Date();
+now.setMonth(now.getMonth() - 1); // Go to previous month
+const currentMonth = now.toLocaleString('default', { month: 'short' });
+
 
   const expensesData = {
     "Jan": {
