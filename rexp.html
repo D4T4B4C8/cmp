@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Expenses</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
   <style>
     body {
       margin: 0;
@@ -41,11 +42,36 @@
       max-width: 2000px;
       margin: 100px auto;
     }
+
+    .sort-container {
+      text-align: center;
+      margin-top: 10px;
+      margin-bottom: 20px;
+    }
+
+    .sort-container button {
+      padding: 8px 20px;
+      background-color: #d1d5db;
+      color: #333;
+      font-weight: bold;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .sort-container button.active {
+      background-color: #3b3b98;
+      color: white;
+    }
   </style>
 </head>
 <body>
 
 <div class="month-buttons" id="monthButtons"></div>
+
+<div class="sort-container">
+  <button id="sortToggleBtn">Sort Descending</button>
+</div>
 
 <div class="chart-container">
   <canvas id="expensesChart" height="300"></canvas>
@@ -61,23 +87,34 @@
 
   const expensesData = {
     "Jul": {
-      labels: ["ROOM RENT (NASEEM AHMED)", "ROOM BIJLI BILL (NASEEM AHMED", "J-15 OFFICE RENT (ROAMIO)", "J-15 OFFICE BIJLI BILL (ROAMIO)","J-15 OFFICE WIFI (ROAMIO)","ALKA OFFICE  RENT (FAD)","ALKA OFFICE  BIJLI BILL (FAD)","ALKA OFFICE WIFI (FAD)","ALKA OFFICE NEWS PAPER (FAD)","OFFICE EXP (WATER-TEA-COLD DRINK)","ASAD SALARY","AREEB SALARY","FAISAL SALARY","MAID SALARY","NASEEM SALARY"],
-      data: [12000, 500, 13750, 3000, 9897.84, 26250,4000,1000,600,8400,12000,15000,15000,5000,25000]
+      labels: ["ROOM RENT (NASEEM AHMED)", "ROOM BIJLI BILL (NASEEM AHMED)", "J-15 OFFICE RENT (ROAMIO)", "J-15 OFFICE BIJLI BILL (ROAMIO)", "J-15 OFFICE WIFI (ROAMIO)", "ALKA OFFICE RENT (FAD)", "ALKA OFFICE BIJLI BILL (FAD)", "ALKA OFFICE WIFI (FAD)", "ALKA OFFICE NEWS PAPER (FAD)", "OFFICE EXP (WATER-TEA-COLD DRINK)", "ASAD SALARY", "AREEB SALARY", "FAISAL SALARY", "MAID SALARY", "NASEEM SALARY"],
+      data: [12000, 500, 13750, 3000, 9897.84, 26250, 4000, 1000, 600, 8400, 12000, 15000, 15000, 5000, 25000]
     }
-    // Add more months if needed
   };
 
   const monthContainer = document.getElementById("monthButtons");
+  const sortToggleBtn = document.getElementById("sortToggleBtn");
+
+  let isDescending = false;
+  let currentSelectedMonth = currentMonth;
+  let chart;
 
   months.forEach(month => {
     const btn = document.createElement("button");
     btn.textContent = month;
     btn.classList.toggle("active", month === currentMonth);
-    btn.onclick = () => loadChart(month);
+    btn.onclick = () => {
+      currentSelectedMonth = month;
+      loadChart(month);
+    };
     monthContainer.appendChild(btn);
   });
 
-  let chart;
+  sortToggleBtn.onclick = () => {
+    isDescending = !isDescending;
+    sortToggleBtn.textContent = isDescending ? "Sort Ascending" : "Sort Descending";
+    loadChart(currentSelectedMonth);
+  };
 
   function loadChart(month) {
     document.querySelectorAll(".month-buttons button").forEach(btn => {
@@ -85,24 +122,40 @@
     });
 
     const ctx = document.getElementById('expensesChart').getContext('2d');
-    const data = expensesData[month] || { labels: [], data: [] };
+    const monthData = expensesData[month] || { labels: [], data: [] };
+
+    let combined = monthData.labels.map((label, i) => ({
+      label,
+      value: monthData.data[i]
+    }));
+
+    if (isDescending) {
+      combined.sort((a, b) => b.value - a.value);
+    }
+
+    const labels = combined.map(item => item.label);
+    const data = combined.map(item => item.value);
+
+    const colors = [
+      '#ffb6b9', '#a0e7e5', '#b4f8c8', '#fbe7c6', '#ffdac1',
+      '#e2f0cb', '#b5ead7', '#c7ceea', '#f7d6e0', '#d0e8f2',
+      '#c2f9bb', '#fbe4c3', '#ffd6a5', '#fdffb6', '#caffbf'
+    ];
 
     if (chart) chart.destroy();
 
     chart = new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: data.labels,
+        labels,
         datasets: [{
           label: 'Expenses',
-          data: data.data,
-          backgroundColor: [
-            '#ffb6b9', '#a0e7e5', '#b4f8c8', '#fbe7c6'
-          ],
+          data,
+          backgroundColor: colors,
           borderRadius: 20,
-          barThickness: 70,           // Increased bar thickness
-          categoryPercentage: 0.8,    // Controls spacing between categories
-          barPercentage: 1.0          // Full width bar within category
+          barThickness: 70,
+          categoryPercentage: 1.0,
+          barPercentage: 0.9
         }]
       },
       options: {
@@ -110,34 +163,35 @@
         responsive: true,
         plugins: {
           legend: { display: false },
-          tooltip: { enabled: true }
+          tooltip: { enabled: false },
+          datalabels: {
+            anchor: 'center',
+            align: 'center',
+            color: '#000',
+            font: {
+              weight: 'bold',
+              size: 16
+            },
+            formatter: value => value
+          }
         },
         scales: {
           x: {
-            ticks: {
-              color: '#555'
-            },
-            grid: {
-              color: '#ddd'
-            }
+            ticks: { color: '#555' },
+            grid: { color: '#ddd' }
           },
           y: {
             ticks: {
-              font: {
-                size: 23,
-                weight: 'bold'
-              },
+              font: { size: 23, weight: 'bold' },
               color: '#333',
-              padding: 5     // Less padding between bar and label
+              padding: 5
             },
-            grid: {
-              display: false
-            }
+            grid: { display: false }
           }
         }
-      }
+      },
+      plugins: [ChartDataLabels]
     });
-    
   }
 
   loadChart(currentMonth);
