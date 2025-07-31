@@ -162,86 +162,75 @@
     <div id="report"></div>
   </div>
 
+  <script src="daily.txt"></script> <!-- Load reports object -->
   <script>
-  // All Reports
-  const reports = {
-  "29/07/2025": {
-  accounts: { cash: "147994", icici: "139147.41", axis: "14968.71", stock: "1114431.80" },
-  purchase: { count: 3, total: "87500.00" },
-  sale: { count: 6, total: "150500.00" },
-  repair: { jobs: 1, total: "800" },
-  parts: { total: "0" },
-  accessories: { sale: "0", purchase: "0" }
-}
-  };
+    const dateSelect = document.getElementById('dateSelect');
+    for (let date in reports) {
+      let opt = document.createElement("option");
+      opt.value = date;
+      opt.innerText = date;
+      dateSelect.appendChild(opt);
+    }
 
-  const dateSelect = document.getElementById('dateSelect');
-  for (let date in reports) {
-    let opt = document.createElement("option");
-    opt.value = date;
-    opt.innerText = date;
-    dateSelect.appendChild(opt);
-  }
+    const updateReport = (selectedDate) => {
+      const data = reports[selectedDate];
+      if (!data) return;
 
-  const updateReport = (selectedDate) => {
-    const data = reports[selectedDate];
+      document.getElementById('cash').innerText = data.accounts.cash;
+      document.getElementById('icici').innerText = data.accounts.icici;
+      document.getElementById('axis').innerText = data.accounts.axis;
+      document.getElementById('stock').innerText = data.accounts.stock;
 
-    document.getElementById('cash').innerText = data.accounts.cash;
-    document.getElementById('icici').innerText = data.accounts.icici;
-    document.getElementById('axis').innerText = data.accounts.axis;
-    document.getElementById('stock').innerText = data.accounts.stock;
+      const report = document.getElementById('report');
+      const createCard = (title, icon, contentHTML, className) => {
+        return `
+          <section class="report-card ${className}">
+            <h2>${icon} ${title}</h2>
+            ${contentHTML}
+          </section>`;
+      };
 
-    const report = document.getElementById('report');
-    const createCard = (title, icon, contentHTML, className) => {
-      return `
-        <section class="report-card ${className}">
-          <h2>${icon} ${title}</h2>
-          ${contentHTML}
-        </section>`;
+      const sectionsHTML = [
+        createCard('Purchase', '📦',
+          `<p><strong>Count:</strong> ${data.purchase.count}</p>
+           <p><strong>Total:</strong> ₹${data.purchase.total}</p>`,
+          'soft-blue'),
+
+        createCard('Sale', '💸',
+          `<p><strong>Count:</strong> ${data.sale.count}</p>
+           <p><strong>Total:</strong> ₹${data.sale.total}</p>`,
+          'soft-green'),
+
+        createCard('Repairs', '🛠️',
+          `<p><strong>Jobs:</strong> ${data.repair.jobs}</p>
+           <p><strong>Total:</strong> ₹${data.repair.total}</p>`,
+          'soft-yellow'),
+
+        createCard('Parts', '⚙️',
+          `<p><strong>Total:</strong> ₹${data.parts.total}</p>`,
+          'soft-pink'),
+
+        createCard('Accessories', '🎧',
+          `<p><strong>Sale:</strong> ₹${data.accessories.sale}</p>
+           <p><strong>Purchase:</strong> ₹${data.accessories.purchase}</p>`,
+          'soft-purple')
+      ];
+
+      report.innerHTML = sectionsHTML.join('');
     };
 
-    const sectionsHTML = [
-      createCard('Purchase', '📦',
-        `<p><strong>Count:</strong> ${data.purchase.count}</p>
-         <p><strong>Total:</strong> ₹${data.purchase.total}</p>`,
-        'soft-blue'),
+    const sortedDates = Object.keys(reports).sort((a, b) => {
+      const [da, ma, ya] = a.split('/').map(Number);
+      const [db, mb, yb] = b.split('/').map(Number);
+      return new Date(yb, mb - 1, db) - new Date(ya, ma - 1, da);
+    });
 
-      createCard('Sale', '💸',
-        `<p><strong>Count:</strong> ${data.sale.count}</p>
-         <p><strong>Total:</strong> ₹${data.sale.total}</p>`,
-        'soft-green'),
+    updateReport(dateSelect.value = sortedDates[0]);
 
-      createCard('Repairs', '🛠️',
-        `<p><strong>Jobs:</strong> ${data.repair.jobs}</p>
-         <p><strong>Total:</strong> ₹${data.repair.total}</p>`,
-        'soft-yellow'),
+    dateSelect.addEventListener('change', () => {
+      updateReport(dateSelect.value);
+    });
+  </script>
 
-      createCard('Parts', '⚙️',
-        `<p><strong>Total:</strong> ₹${data.parts.total}</p>`,
-        'soft-pink'),
-
-      createCard('Accessories', '🎧',
-        `<p><strong>Sale:</strong> ₹${data.accessories.sale}</p>
-         <p><strong>Purchase:</strong> ₹${data.accessories.purchase}</p>`,
-        'soft-purple')
-    ];
-
-    report.innerHTML = sectionsHTML.join('');
-  };
-
-  // Load first date by default
-  const sortedDates = Object.keys(reports).sort((a, b) => {
-  const [da, ma, ya] = a.split('/').map(Number);
-  const [db, mb, yb] = b.split('/').map(Number);
-  return new Date(yb, mb - 1, db) - new Date(ya, ma - 1, da);
-});
-updateReport(dateSelect.value = sortedDates[0]);
-
-
-  // Event: Change report when date is selected
-  dateSelect.addEventListener('change', () => {
-    updateReport(dateSelect.value);
-  });
-</script>
 </body>
 </html>
