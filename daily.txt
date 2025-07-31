@@ -1,0 +1,10 @@
+const reports = {
+"30/07/2025": {
+  accounts: { cash: "151194", icici: "108117.91", axis: "14808.71", stock: "1123431.80" },
+  purchase: { count: 1, total: "31000.00" },
+  sale: { count: 0, total: "0.00" },
+  repair: { jobs: 1, total: "2000" },
+  parts: { total: "0" },
+  accessories: { sale: "200", purchase: "0" }
+}
+};
