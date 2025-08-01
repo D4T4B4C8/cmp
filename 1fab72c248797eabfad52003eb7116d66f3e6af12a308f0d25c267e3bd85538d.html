@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Text Viewer</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 1em;
+      font-family: 'Courier New', monospace;
+      background: #f4f4f4;
+      color: #111; /* dark black for better contrast */
+    }
+
+    #controls {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: white;
+      padding: 6px 10px;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      z-index: 1000;
+    }
+
+    button {
+      padding: 6px 12px;
+      margin: 0 4px;
+      font-size: 14px;
+      cursor: pointer;
+      background-color: #111;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #333;
+    }
+
+    #content {
+      white-space: pre-wrap;
+      font-size: 16px;
+      line-height: 1.6;
+      padding-top: 4em;
+      font-feature-settings: "tnum"; /* enable tabular numbers if supported */
+      font-variant-numeric: tabular-nums;
+    }
+
+    h5 {
+      font-weight: bold;
+      font-family: monospace;
+      color: #000;
+      margin-left: 1em;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="controls">
+    <button onclick="zoomIn()">Zoom In</button>
+    <button onclick="zoomOut()">Zoom Out</button>
+    <button onclick="resetZoom()">Reset</button>
+  </div>
+
+  <div id="content">
+
+<!-- Paste your .txt content between these lines -->
+<h1> REPAIR </h1>
+<h3>
++------------+----------------------------------+---------+---------+------+-------+
+| DATE       | NAME                             | AXIS    | ICICI   | CASH | TOTAL |
++------------+----------------------------------+---------+---------+------+-------+
+| 2025-07-06 | REPAIR                           | 0.00    | 0.00    | 300  | 300   |
+| 2025-07-07 | SAMSUNG DISPLAY CHANGE           | 0.00    | 0.00    | 2100 | 2100  |
+| 2025-07-10 | REALME DISPLAY CHANGE            | 0.00    | 1400.00 | 0    | 1400  |
+| 2025-07-10 | REPAIRING                        | 0.00    | 1500.00 | 0    | 1500  |
+| 2025-07-11 | OPPO LCD CHANGE                  | 5300.00 | 0.00    | 0    | 5300  |
+| 2025-07-11 | MAC BOOK CHARGING REPAIR         | 0.00    | 2000.00 | 0    | 2000  |
+| 2025-07-12 | VIVO Y33S BATTERY CHANGED        | 1300.00 | 0.00    | 0    | 1300  |
+| 2025-07-12 | IPAD REPAIR                      | 0.00    | 0.00    | 2000 | 2000  |
+| 2025-07-16 | SAMSUNG SOFTWARE                 | 0.00    | 0.00    | 400  | 400   |
+| 2025-07-17 | SAMSUNG REPAIR                   | 0.00    | 0.00    | 400  | 400   |
+| 2025-07-17 | VIVO REPAIR                      | 0.00    | 1300.00 | 0    | 1300  |
+| 2025-07-17 | IPHONE 13 PRO MAX REPAIR         | 0.00    | 0.00    | 4000 | 4000  |
+| 2025-07-18 | REPAIR                           | 0.00    | 0.00    | 3000 | 3000  |
+| 2025-07-19 | IPHONE XR REPAIR                 | 0.00    | 1500.00 | 0    | 1500  |
+| 2025-07-20 | IPHONE XR DISPLAY AND BATTERY    | 0.00    | 0.00    | 4200 | 4200  |
+| 2025-07-20 | ONEPLUS REPAIR                   | 0.00    | 350.00  | 0    | 350   |
+| 2025-07-20 | VIVO Y22 DISPLAY CHANGE          | 0.00    | 0.00    | 1100 | 1100  |
+| 2025-07-22 | IPHONE 12 PRO REPAIR             | 0.00    | 0.00    | 1700 | 1700  |
+| 2025-07-23 | MI PHONE REPAIR                  | 0.00    | 0.00    | 900  | 900   |
+| 2025-07-23 | IPHONE 6S REPAIR                 | 0.00    | 0.00    | 600  | 600   |
+| 2025-07-23 | APPLE 12 PRO DISPLAY CHANGE      | 0.00    | 8000.00 | 0    | 8000  |
+| 2025-07-23 | IPHONE 13 PRO BACK GLASS CHANGE  | 0.00    | 2400.00 | 0    | 2400  |
+| 2025-07-24 | OPPO K10 DISPLAY CHANGE          | 0.00    | 1200.00 | 0    | 1200  |
+| 2025-07-25 | IPHONE XR LCD CHANGE             | 0.00    | 2100.00 | 0    | 2100  |
+| 2025-07-25 | IPHONE 11 PRO MAX LCD AND BACK   | 0.00    | 6700.00 | 0    | 6700  |
+| 2025-07-27 | IPHONE 12 PRO BATTERY CHANGE     | 0.00    | 0.00    | 2500 | 2500  |
+| 2025-07-27 | MI REPAIR                        | 0.00    | 450.00  | 0    | 450   |
+| 2025-07-28 | SAMSUNG S10 LIGHT DISPLAY CHANGE | 0.00    | 9000.00 | 0    | 9000  |
+| 2025-07-29 | IPHONE 12 PRO BACK GLASS         | 0.00    | 0.00    | 800  | 800   |
+| 2025-07-30 | IPHONE 12 REPAIR                 | 0.00    | 0.00    | 2000 | 2000  |
++------------+----------------------------------+---------+---------+------+-------+
+<!-- (your full table content goes here) -->
+  </div>
+
+  <h2>TOTAL = 70,500</h2>
+
+  <script>
+    let fontSize = 16;
+
+    function zoomIn() {
+      fontSize += 2;
+      document.getElementById('content').style.fontSize = fontSize + 'px';
+    }
+
+    function zoomOut() {
+      if (fontSize > 8) {
+        fontSize -= 2;
+        document.getElementById('content').style.fontSize = fontSize + 'px';
+      }
+    }
+
+    function resetZoom() {
+      fontSize = 16;
+      document.getElementById('content').style.fontSize = fontSize + 'px';
+    }
+  </script>
+</body>
+</html>
