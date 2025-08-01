@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Text Viewer</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 1em;
+      font-family: 'Courier New', monospace;
+      background: #f4f4f4;
+      color: #111; /* dark black for better contrast */
+    }
+
+    #controls {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: white;
+      padding: 6px 10px;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      z-index: 1000;
+    }
+
+    button {
+      padding: 6px 12px;
+      margin: 0 4px;
+      font-size: 14px;
+      cursor: pointer;
+      background-color: #111;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #333;
+    }
+
+    #content {
+      white-space: pre-wrap;
+      font-size: 16px;
+      line-height: 1.6;
+      padding-top: 4em;
+      font-feature-settings: "tnum"; /* enable tabular numbers if supported */
+      font-variant-numeric: tabular-nums;
+    }
+
+    h5 {
+      font-weight: bold;
+      font-family: monospace;
+      color: #000;
+      margin-left: 1em;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="controls">
+    <button onclick="zoomIn()">Zoom In</button>
+    <button onclick="zoomOut()">Zoom Out</button>
+    <button onclick="resetZoom()">Reset</button>
+  </div>
+
+  <div id="content">
+
+<!-- Paste your .txt content between these lines -->
+<h1> PARTS </h1>
+<h3>
++------------+-------------------------------+------+-------+------+-------+
+| DATE       | NAME                          | AXIS | ICICI | CASH | TOTAL |
++------------+-------------------------------+------+-------+------+-------+
+| 2025-07-04 | CHETAN GUPTA                  | 3001 | 0     | 0    | 3001  |
+| 2025-07-04 | MISHRA PARTS                  | 3900 | 0     | 0    | 3900  |
+| 2025-07-07 | MAHESH PARTS                  | 500  | 0     | 0    | 500   |
+| 2025-07-07 | DISPLAY PARTS                 | 600  | 0     | 0    | 600   |
+| 2025-07-11 | OPPO LCD PARTS SAPLAYER       | 2640 | 0     | 0    | 2640  |
+| 2025-07-11 | RAKESH PARTS                  | 6650 | 0     | 0    | 6650  |
+| 2025-07-12 | FLIP 4 PARTS                  | 3000 | 0     | 0    | 3000  |
+| 2025-07-21 | PARTS                         | 0    | 550   | 0    | 550   |
+| 2025-07-24 | PARVEZ PARTS                  | 750  | 0     | 0    | 750   |
+| 2025-07-24 | CHETAN GUPTA PARTS            | 4200 | 0     | 0    | 4200  |
+| 2025-07-25 | RAKESH PARTS                  | 5000 | 0     | 0    | 5000  |
+| 2025-07-26 | PARVEZ PARTS                  | 1150 | 0     | 0    | 1150  |
+| 2025-07-27 | BILAL PARTS                   | 550  | 0     | 0    | 550   |
+| 2025-07-28 | SPARE SOLUTIONS PARTS         | 2582 | 0     | 0    | 2582  |
+| 2025-07-31 | RAKESH PARTS                  | 8000 | 0     | 0    | 8000  |
+| 2025-07-31 | FOLD 5 CUSTOMER REPAIR REFUND | 0    | 0     | 5000 | 5000  |
++------------+-------------------------------+------+-------+------+-------+
+<!-- (your full table content goes here) -->
+  </div>
+
+  <h2>TOTAL = 48073 </h2>
+
+  <script>
+    let fontSize = 16;
+
+    function zoomIn() {
+      fontSize += 2;
+      document.getElementById('content').style.fontSize = fontSize + 'px';
+    }
+
+    function zoomOut() {
+      if (fontSize > 8) {
+        fontSize -= 2;
+        document.getElementById('content').style.fontSize = fontSize + 'px';
+      }
+    }
+
+    function resetZoom() {
+      fontSize = 16;
+      document.getElementById('content').style.fontSize = fontSize + 'px';
+    }
+  </script>
+</body>
+</html>
