@@ -1,0 +1,311 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Text Viewer</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 1em;
+      font-family: 'Courier New', monospace;
+      background: #f4f4f4;
+      color: #111; /* dark black for better contrast */
+    }
+
+    #controls {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: white;
+      padding: 6px 10px;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      z-index: 1000;
+    }
+
+    button {
+      padding: 6px 12px;
+      margin: 0 4px;
+      font-size: 14px;
+      cursor: pointer;
+      background-color: #111;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #333;
+    }
+
+    #content {
+      white-space: pre-wrap;
+      font-size: 16px;
+      line-height: 1.6;
+      padding-top: 4em;
+      font-feature-settings: "tnum"; /* enable tabular numbers if supported */
+      font-variant-numeric: tabular-nums;
+    }
+
+    h5 {
+      font-weight: bold;
+      font-family: monospace;
+      color: #000;
+      margin-left: 1em;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="controls">
+    <button onclick="zoomIn()">Zoom In</button>
+    <button onclick="zoomOut()">Zoom Out</button>
+    <button onclick="resetZoom()">Reset</button>
+  </div>
+
+  <div id="content">
+
+<!-- Paste your .txt content between these lines -->
+<h1> JULY CASH </h1>
+<h5>
++------------+-------------+----------------+----------+----------+----------+---------+-------------+--------+-------+-------------+--------+----------+----------+-------------+--------------+-------------+
+| DATE       | OPENING_BAL | PURCHASE_PHONE | P_ACCESS | EXPANSES | FUND_SUB | PENDING | P_PYMT_SEND | SALARY | PARTS | SALE_PHONES | REPAIR | S_ACCESS | FUND_ADD | PENDING_REC | P_PYMT_DELAY | CLOSING_BAL |
++------------+-------------+----------------+----------+----------+----------+---------+-------------+--------+-------+-------------+--------+----------+----------+-------------+--------------+-------------+
+| 2025-06-30 |      351954 |          45000 |        0 |        0 |   250000 |       0 |           0 |      0 |     0 |       44500 |   2750 |     1500 |        0 |       13500 |            0 |      119204 |
++------------+-------------+----------------+----------+----------+----------+---------+-------------+--------+-------+-------------+--------+----------+----------+-------------+--------------+-------------+
+<h3>
+P-PHONE
+-------
+
++----------+--------------------+---------+---------+-----------------+------------+-------+
+| ORDER_ID | NAME               | STORAGE | C_NAME  | IMEI            | DATE       | CASH  |
++----------+--------------------+---------+---------+-----------------+------------+-------+
+|     2090 | IPHONE 12 PRO      | 256     | X       | 276559660       | 2025-07-01 | 17500 |
+|     2091 | IPHONE 12          | 128     | X       | 1100354110      | 2025-07-01 | 17500 |
+|     2092 | IPHONE 13          | 128     | PRIYANK | 1947443549      | 2025-07-02 |  6500 |
+|     2094 | IPAD               | 32      | X       | DMPJP5RCF183    | 2025-07-03 |  2000 |
+|     2095 | IPAD MINI          | 32      | X       | F9FPNCF6FCM9    | 2025-07-03 |  1000 |
+|     2096 | REALMI TAB 2 LIGHT | 128     | X       | 2070471429      | 2025-07-03 |  5000 |
+|     2097 | SAMSUNG S21 ULTRA  | 256     | X       | 719099837601    | 2025-07-04 | 20000 |
+|     3002 | IPHONE 13 PRO MAX  | 256     | X       | 85459188        | 2025-07-07 | 43500 |
+|     3004 | ONEPLUS NORD CE    | 128     | X       | 059222911       | 2025-07-07 |  7500 |
+|     3006 | IPHONE 14 PLUS     | 128     | X       | 1760098404      | 2025-07-07 | 18500 |
+|     3007 | SAMSUNG FLIP 4     | 256     | X       | 15593493034     | 2025-07-08 | 20000 |
+|     3009 | REALME C73         | 64      | X       | 075877079       | 2025-07-09 |  6000 |
+|     3010 | IPHONE 14          | 128     | X       | 8631538737      | 2025-07-10 | 15000 |
+|     3011 | SAMSUNG A55        | 128     | x       | 1020004901      | 2025-07-10 | 14000 |
+|     3012 | SAMSUNG S20 FE     | 128     | X       | 0055074         | 2025-07-10 | 11000 |
+|     3013 | IPHONE 13 PRO      | 256     | X       | 10754490        | 2025-07-11 | 30500 |
+|     3014 | IPAD MINI          | 16      | X       | F7PMP64AFP84    | 2025-07-11 |  1000 |
+|     3015 | IPHONE 13 PRO GOLD | 128     | X       | 815975202       | 2025-07-11 | 34000 |
+|     3020 | IPHONE 12          | 128     | X       | 84280930        | 2025-07-13 | 12000 |
+|     3021 | TECHNO SPARK 20C   | 128     | X       | 70618628        | 2025-07-14 |  2500 |
+|     3025 | ONE PLUS 12R       | 256     | X       | 072983392       | 2025-07-17 | 21000 |
+|     3026 | IPHONE XS MAX      | 64      | X       | 100690836       | 2025-07-17 |  9500 |
+|     3028 | IPHONE 12 MINI     | 64      | X       | 119079482       | 2025-07-18 | 15000 |
+|     3029 | IPHONE 11          | 64      | X       | 110797174       | 2025-07-19 |  9500 |
+|     3034 | IPHONE 13 PRO MAX  | 128     | x       | 125041254       | 2025-07-19 | 24500 |
+|     3030 | SAMSUNG FOLD 5     | 256     | X       | 30118959        | 2025-07-20 | 19000 |
+|     3032 | ONEPLUS NORD 2     | 256     | X       | 0054663494      | 2025-07-20 |   800 |
+|     3039 | VIVO Y29           | 128     | X       | 072560417       | 2025-07-23 |  7500 |
+|     3043 | SAMSUNG A04        | 128     | X       | 303840130411    | 2025-07-24 |  3000 |
+|     3044 | SAMSUNG A12        | 128     | X       | 1934902501      | 2025-07-24 |  1350 |
+|     3048 | SAMSUNG M315       | 128     | X       | 2120518201      | 2025-07-27 |  2500 |
+|     3052 | IPHONE 14 PRO MAX  | 128     | GOURAV  | 97792640636     | 2025-07-29 | 47000 |
+|     3053 | IPHONE 12 PRO      | 128     | X       | 117507639       | 2025-07-29 | 24000 |
+|     3055 | IPHONE SE 2020     | 128     | X       | 356493106636068 | 2025-07-31 |  6000 |
+|     3056 | IPHONE 8 PLUSE     | 64      | X       | 3838561         | 2025-07-31 |  3500 |
++----------+--------------------+---------+---------+-----------------+------------+-------+
+
+P_ACCESSORIES
+-------------
+
++------------+----------------------------+------+
+| DATE       | NAME                       | CASH |
++------------+----------------------------+------+
+| 2025-07-10 | APPLE AIR PODS FIRST COPY  |  660 |
+| 2025-07-10 | APPLE AIR PODS SECOND COPY | 1200 |
+| 2025-07-10 | APPLE AIR PODS THIRD COPY  |  550 |
+| 2025-07-10 | 95W CHARGERS               | 1000 |
++------------+----------------------------+------+
+
+EXPANSES
+--------
+
++------------+------------+-------+
+| DATE       | NAME       | CASH  |
++------------+------------+-------+
+| 2025-07-07 | MAID       |  1500 |
+| 2025-07-09 | SHOP RENT  | 40000 |
+| 2025-07-10 | CONVEYANCE |  1000 |
+| 2025-07-12 | MCD        |   500 |
++------------+------------+-------+
+
+PARTS
+-----
+
++------------+-------------------------------+------+
+| DATE       | NAME                          | CASH |
++------------+-------------------------------+------+
+| 2025-07-31 | FOLD 5 CUSTOMER REPAIR REFUND | 5000 |
++------------+-------------------------------+------+
+
+S_PHONE
+-------
+
++----------+-----------------------+---------+----------------+-------------+------------+-------+
+| ORDER_ID | NAME                  | STORAGE | C_NAME         | IMEI        | DATE       | CASH  |
++----------+-----------------------+---------+----------------+-------------+------------+-------+
+|     2071 | IPHONE 14 PRO MAX     | 128     | RAGHAV         | 36498759    | 2025-07-02 | 34500 |
+|     2024 | IPHONE 11 PRO         | 64      | SAKIB          | 5102798216  | 2025-07-02 |  9500 |
+|     1582 | SAMSUNG S21 ULTRA     | 256     | MON            | 90998376    | 2025-07-03 | 23000 |
+|     1666 | SAMSUNG S21 ULTRA     | 256     | MON            | 524005      | 2025-07-03 | 17000 |
+|     1179 | SAMSUNG FLIP 4        | 256     | NOOR           | 324449      | 2025-07-03 | 11500 |
+|     2059 | SAMSUNG A34           | 256     | SAMEER         | 408891201   | 2025-07-04 | 11500 |
+|     2091 | IPHONE 12             | 128     | NOOR           | 1100354110  | 2025-07-08 | 23000 |
+|     2098 | IPHONE 13             | 128     | PAGI           | 4464240476  | 2025-07-10 | 25000 |
+|     1843 | IPHONE 13             | 128     | NEERAJ         | 89153259    | 2025-07-10 | 27750 |
+|     1941 | IPHONE 13             | 128     | ASHOK          | 18450401795 | 2025-07-10 | 21000 |
+|     3005 | IPHONE 13 PRO         | 256     | RAKESH         | 2710754490  | 2025-07-10 | 13500 |
+|      465 | IPHONE 13             | 128     | RAKESH         | 262990      | 2025-07-10 | 17000 |
+|     3010 | IPHONE 14             | 128     | AAMAN          | 8631538737  | 2025-07-11 | 30500 |
+|        5 | HP METAL LAPTOP 2     | 512     | GHUNJAN        | XHP2        | 2025-07-12 | 15000 |
+|     2078 | ONEPLUS 9RT           | 256     | BUNTY          | 7051047292  | 2025-07-12 |  3000 |
+|     2093 | IPHONE 14             | 128     | sagar          | 40232973    | 2025-07-13 | 29000 |
+|     1586 | MI 11 ULTRA           | 256     | RK ENTERPRICES | 378576      | 2025-07-16 | 17000 |
+|     1530 | REALME C15            | 64      | JIO STORE      | 102027      | 2025-07-16 |  4000 |
+|     3020 | IPHONE 12             | 128     | ROHIT          | 84280930    | 2025-07-18 | 17000 |
+|     2077 | IPHONE 12 PRO         | 256     | HABIBUR        | 111158302   | 2025-07-19 |  2000 |
+|     2081 | IPHONE 11             | 64      | MANISH         | 05032722    | 2025-07-21 | 14000 |
+|     2096 | REALMI TAB 2 LIGHT    | 128     | X              | 2070471429  | 2025-07-21 |  7000 |
+|     3024 | REDMI 14C             | 128     | MANISH         | 074374687   | 2025-07-21 |  7000 |
+|        8 | MI LAPTOP             | 512     | VIRAJ          | MILAP       | 2025-07-27 |  3500 |
+|     2084 | VIVO V30              | 256     | NAZIM          | 075271394   | 2025-07-28 | 14500 |
+|     3007 | SAMSUNG FLIP 4        | 256     | HARSHIT        | 15593493034 | 2025-07-29 |  6000 |
+|     3030 | SAMSUNG FOLD 5        | 256     | AMIR           | 30118959    | 2025-07-29 | 21000 |
+|     3047 | SAMSUNG NOTE 20 ULTRA | 256     | ZUBAIR ALI     | 22757413801 | 2025-07-29 | 10000 |
+|     3052 | IPHONE 14 PRO MAX     | 128     | ISHQ           | 97792640636 | 2025-07-29 | 49000 |
+|     3041 | IPHONE 14             | 128     | RAKESH         | 2814194899  | 2025-07-31 | 28700 |
++----------+-----------------------+---------+----------------+-------------+------------+-------+
+
+REPAIR
+------
+
++------------+-------------------------------+------+
+| DATE       | NAME                          | CASH |
++------------+-------------------------------+------+
+| 2025-07-06 | REPAIR                        |  300 |
+| 2025-07-07 | SAMSUNG DISPLAY CHANGE        | 2100 |
+| 2025-07-12 | IPAD REPAIR                   | 2000 |
+| 2025-07-16 | SAMSUNG SOFTWARE              |  400 |
+| 2025-07-17 | SAMSUNG REPAIR                |  400 |
+| 2025-07-17 | IPHONE 13 PRO MAX REPAIR      | 4000 |
+| 2025-07-18 | REPAIR                        | 3000 |
+| 2025-07-20 | VIVO Y22 DISPLAY CHANGE       | 1100 |
+| 2025-07-20 | IPHONE XR DISPLAY AND BATTERY | 4200 |
+| 2025-07-22 | IPHONE 12 PRO REPAIR          | 1700 |
+| 2025-07-23 | MI PHONE REPAIR               |  900 |
+| 2025-07-23 | IPHONE 6S REPAIR              |  600 |
+| 2025-07-27 | IPHONE 12 PRO BATTERY CHANGE  | 2500 |
+| 2025-07-29 | IPHONE 12 PRO BACK GLASS      |  800 |
+| 2025-07-30 | IPHONE 12 REPAIR              | 2000 |
++------------+-------------------------------+------+
+
+S_ACCESSORIES
+-------------
+
++------------+-----------------------------------------+------+
+| DATE       | NAME                                    | CASH |
++------------+-----------------------------------------+------+
+| 2025-07-01 | SIMPLE COVER                            | 1000 |
+| 2025-07-01 | 50 TEMP                                 |  500 |
+| 2025-07-01 | SIMPLE COVER                            |  250 |
+| 2025-07-01 | 40 TEMP                                 |  250 |
+| 2025-07-03 | 50 TEMP                                 |  200 |
+| 2025-07-04 | LYNE FLEXY 48 TC-TC CABLES              |  500 |
+| 2025-07-05 | PORTRONICS KONNECT LINK 8 PIN           |  500 |
+| 2025-07-05 | PLAYGO CHARGER SECURE 20C               |  500 |
+| 2025-07-07 | LYNE FLEXY 29TC                         |  200 |
+| 2025-07-08 | PORTRONICS KONNECT X                    |  500 |
+| 2025-07-09 | PLAYGO FAST                             | 1500 |
+| 2025-07-09 | SAMSUNG ADAPTER 5W                      |  500 |
+| 2025-07-09 | APPLE USB C ADAPTOR                     | 1000 |
+| 2025-07-09 | PORTRONICS KONNECT X                    |  500 |
+| 2025-07-10 | APPLE USB C ADAPTOR                     |  250 |
+| 2025-07-11 | 3 IN 1 CHARGING CABLE                   |  150 |
+| 2025-07-12 | LYNE FLEXY 1 IP                         |  200 |
+| 2025-07-18 | 50 TEMP                                 |  200 |
+| 2025-07-19 | SIMPLE COVER                            |  300 |
+| 2025-07-19 | 80 TEMP                                 |  400 |
+| 2025-07-20 | 50 TEMP                                 |  300 |
+| 2025-07-20 | APPLE AIR PODS THIRD COPY               |  800 |
+| 2025-07-22 | APPLE USB C TO LIGHTNING                |  900 |
+| 2025-07-27 | APPLE USB C ADAPTOR                     | 1000 |
+| 2025-07-27 | APPLE USB C TO LIGHTNING                | 1000 |
+| 2025-07-27 | 80 TEMP                                 |  300 |
+| 2025-07-27 | 50 TEMP                                 |  300 |
+| 2025-07-30 | PORTRONICS KONNECT LINK USB A TO TYPE C |  200 |
++------------+-----------------------------------------+------+
+
+PENDING REC
+-----------
+
++------------+----------+-----------------+-------+
+| DATE       | ORDER_ID | NAME            | CASH  |
++------------+----------+-----------------+-------+
+| 2025-07-03 |     2034 | IPHONE 13       | 10000 |
+| 2025-07-07 |     1581 | ONEPLUS NORD CE |  8000 |
+| 2025-07-24 |     1701 | REDMI 9A        |   100 |
+| 2025-07-24 |     2056 | IPHONE 14 PRO   |  6000 |
++------------+----------+-----------------+-------+
+
+
++--------------------+----------+
+| NAME               | CASH     |
++--------------------+----------+
+|                    |          |
+| PURCHASE_PHONE     | 479150   |
+| P_ACCESSORIES      | 3410     |
+| EXPANSES           | 43000    |
+| FUND_SUB           | 0        |
+| PENDING            | 0        |
+| P_PAYMENT_SEND     | 0        |
+| SALARY             | 0        |
+| REPAIR PARTS       | 5000     |
+| SALE_PHONE         | 512450   |
+| REPAIR             | 26000    |
+| S_ACCESSORIES      | 14200    |
+| FUND_ADD           | 0        |
+| PENDING_REC        | 24100    |
+| P_PAYMENT_DELAY    | 0        |
+| ----------------   | -------- |
+| 2025-07-31 BALANCE | 165394   |
++--------------------+----------+  <!-- (your full table content goes here) -->
+  </div>
+
+
+
+  <script>
+    let fontSize = 16;
+
+    function zoomIn() {
+      fontSize += 2;
+      document.getElementById('content').style.fontSize = fontSize + 'px';
+    }
+
+    function zoomOut() {
+      if (fontSize > 8) {
+        fontSize -= 2;
+        document.getElementById('content').style.fontSize = fontSize + 'px';
+      }
+    }
+
+    function resetZoom() {
+      fontSize = 16;
+      document.getElementById('content').style.fontSize = fontSize + 'px';
+    }
+  </script>
+</body>
+</html>
