@@ -9,7 +9,6 @@
 | 1300     | REALME 10 PRO PLUS        | FAHEEM BHAI FRIEND [JAWAD BAHI] | 2025-02-07     | 13500    |
 | 1400     | REALME 9                  | AKRAM FAHEEM BHAI OFFICE        | 2025-05-22     | 10000    |
 | 1535     | REDMI NOTE 11T            | FAHEEM BHAI OFFICE              | 2025-05-08     | 6000     |
-| 1628     | NOTHING PHONE 2A PLUS     | SHAFI AHMED                     | 2025-06-14     | 14000    |
 | 1803     | SAMSUNG M32               | NASEEM BHAI                     | 2025-06-02     | 2000     |
 | 1817     | SAMSUNG NOTE 10 PLUS      | FAHEEM BHAI OFFICE              | 2025-06-14     | 14000    |
 | 1842     | SAMSUNG A16               | FAHEEM BHAI FAISAL ROAMIO       | 2025-07-29     | 9000     |
@@ -19,6 +18,6 @@
 | xxx      | OLD PENDING               | FAHEEM BHAI                     | DEC            | 55000    |
 | xx2      | JAWAD BAHI REPAIR         | FAHEEM BHAI                     | JUL            | 900      |
 | -------- | ------------------------- | ------------------------------  | -------------- | -------- |
-|          | TOTAL PENDING AMOUNT      | ===============>                |                | 205400   |
+|          | TOTAL PENDING AMOUNT      | ===============>                |                | 191400   |
 +----------+---------------------------+---------------------------------+----------------+----------+
 </h3>
