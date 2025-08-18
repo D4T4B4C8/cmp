@@ -1,10 +1,10 @@
 const reports = {
-"12/08/2025": {
-  accounts: { cash: "152480", icici: "119047.58", axis: "25066.89", stock: "944694.80" },
-  purchase: { count: 4, total: "67629.00" },
-  sale: { count: 6, total: "90500.00" },
+"17/08/2025": {
+  accounts: { cash: "151480", icici: "80347.58", axis: "15260.89", stock: "983094.80" },
+  purchase: { count: 6, total: "38900.00" },
+  sale: { count: 0, total: "0.00" },
   repair: { jobs: 0, total: "0" },
-  parts: { total: "0" },
+  parts: { total: "840" },
   accessories: { sale: "0", purchase: "0" }
 }
 };
