@@ -1,0 +1,246 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Text Viewer</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 1em;
+      font-family: 'Courier New', monospace;
+      background: #f4f4f4;
+      color: #111; /* dark black for better contrast */
+    }
+
+    #controls {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: white;
+      padding: 6px 10px;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      z-index: 1000;
+    }
+
+    button {
+      padding: 6px 12px;
+      margin: 0 4px;
+      font-size: 14px;
+      cursor: pointer;
+      background-color: #111;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #333;
+    }
+
+    #content {
+      white-space: pre-wrap;
+      font-size: 16px;
+      line-height: 1.6;
+      padding-top: 4em;
+      font-feature-settings: "tnum"; /* enable tabular numbers if supported */
+      font-variant-numeric: tabular-nums;
+    }
+
+    h5 {
+      font-weight: bold;
+      font-family: monospace;
+      color: #000;
+      margin-left: 1em;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="controls">
+    <button onclick="zoomIn()">Zoom In</button>
+    <button onclick="zoomOut()">Zoom Out</button>
+    <button onclick="resetZoom()">Reset</button>
+  </div>
+
+  <div id="content">
+
+<!-- Paste your .txt content between these lines -->
+<h1> AUG CASH </h1>
+<h5>
++------------+-------------+----------------+----------+----------+----------+---------+-------------+--------+-------+-------------+--------+----------+----------+-------------+--------------+-------------+
+| DATE       | OPENING_BAL | PURCHASE_PHONE | P_ACCESS | EXPANSES | FUND_SUB | PENDING | P_PYMT_SEND | SALARY | PARTS | SALE_PHONES | REPAIR | S_ACCESS | FUND_ADD | PENDING_REC | P_PYMT_DELAY | CLOSING_BAL |
++------------+-------------+----------------+----------+----------+----------+---------+-------------+--------+-------+-------------+--------+----------+----------+-------------+--------------+-------------+
+| 2025-07-31 |      151194 |           9500 |        0 |        0 |        0 |       0 |           0 |      0 |  5000 |       28700 |      0 |        0 |        0 |           0 |            0 |      165394 |
++------------+-------------+----------------+----------+----------+----------+---------+-------------+--------+-------+-------------+--------+----------+----------+-------------+--------------+-------------+
+  <h3>
+P-PHONE
+-------
+
++----------+---------------+---------+--------+-------------------+------------+-------+
+| ORDER_ID | NAME          | STORAGE | C_NAME | IMEI              | DATE       | CASH  |
++----------+---------------+---------+--------+-------------------+------------+-------+
+|     3059 | SAMSUNG S9    | 64      | X      | 35691509300167498 | 2025-08-04 |  3000 |
+|     3061 | ONEPLUS 11    | 512     | X      | 867735066038236   | 2025-08-04 |  2000 |
+|     3065 | VIVO V25 PRO  | 128     | X      | 888510080444990   | 2025-08-07 |  6000 |
+|     3067 | IPHONE 11     | 64      | X      | 352991117404263   | 2025-08-10 |  1000 |
+|     3069 | SAMSUNG S20   | 128     | X      | 35448011368992901 | 2025-08-11 | 12000 |
+|     3079 | ONEPLUS 9R    | 128     | X      | 869388057850892   | 2025-08-17 |  1000 |
+|     3088 | IPHONE XS     | 64      | X      | 353163102578027   | 2025-08-24 |  7000 |
+|     3091 | IPHONE 13     | 128     | X      | 359451183084591   | 2025-08-29 |   500 |
+|     3093 | IPHONE 14 PRO | 128     | X      | 358168383616268   | 2025-08-31 | 43000 |
++----------+---------------+---------+--------+-------------------+------------+-------+
+
+EXPANSES
+--------
+
++------------+-----------+-------+
+| DATE       | NAME      | CASH  |
++------------+-----------+-------+
+| 2025-08-03 | MAID      |  1500 |
+| 2025-08-04 | SHOP RENT | 38000 |
+| 2025-08-07 | PORTER    |   414 |
+| 2025-08-11 | MCD       |   500 |
++------------+-----------+-------+
+
+FUND SUBTRACT
+-------------
+
++------------+---------------+-------+
+| DATE       | NAME          | CASH  |
++------------+---------------+-------+
+| 2025-08-12 | CASH SUBTRACT | 99000 |
++------------+---------------+-------+
+
+PARTS
+-----
+
++------------+--------------------------+------+
+| DATE       | NAME                     | CASH |
++------------+--------------------------+------+
+| 2025-08-03 | IPAD REPAIR REFUND       | 2000 |
+| 2025-08-07 | SAMSUNG S20 ULTRA PENCIL | 1500 |
++------------+--------------------------+------+
+
+S_PHONE
+-------
+
++----------+-------------------+---------+--------------------+-------------------+------------+-------+
+| ORDER_ID | NAME              | STORAGE | C_NAME             | IMEI              | DATE       | CASH  |
++----------+-------------------+---------+--------------------+-------------------+------------+-------+
+|     2061 | IPHONE 15         | 128     | SHARINS            | 29266239          | 2025-08-01 | 25700 |
+|     1331 | IPHONE 12 PRO MAX | 128     | SARFARAZ           | 784875            | 2025-08-01 | 20500 |
+|     3032 | ONEPLUS NORD 2    | 256     | SHABNAM            | 0054663494        | 2025-08-01 | 10500 |
+|     3045 | IPHONE 7          | 32      | ROHAN              | 1080282430        | 2025-08-02 |  4500 |
+|     2064 | IPHONE XR         | 64      | SHANE ALAM         | 443106174792      | 2025-08-03 |  5000 |
+|     1351 | VIVO V25 PRO      | 128     | RAVINDER           | 444990            | 2025-08-03 |  9000 |
+|     3012 | SAMSUNG S20 FE    | 128     | HARPREET           | 0055074           | 2025-08-04 |  3000 |
+|     1615 | SAMSUNG S23 ULTRA | 256     | RAVINDER           | 311081            | 2025-08-07 |  6000 |
+|     3058 | IPHONE 15 PRO     | 128     | YASEEN             | 354070968179015   | 2025-08-07 |  4000 |
+|     3064 | IPHONE 15         | 128     | PRAN KUMAR         | 359626451666597   | 2025-08-11 | 35000 |
+|     3070 | ONEPLUS 11 R      | 256     | FAHEEM BHAI OFFICE | 123456789         | 2025-08-12 | 15000 |
+|     3074 | IPHONE XS MAX     | 256     | SAKIB              | 357260097024136   | 2025-08-18 |  7000 |
+|     3075 | IPHONE 12 MINI    | 64      | RITESH             | 353023115249604   | 2025-08-19 |  2500 |
+|     3062 | REALMI 9 PRO      | 128     | ANUN               | 861091053905359   | 2025-08-19 |  4500 |
+|     3044 | SAMSUNG A12       | 128     | X                  | 1934902501        | 2025-08-24 |  3000 |
+|     3069 | SAMSUNG S20       | 128     | X                  | 35448011368992901 | 2025-08-25 |  6000 |
+|     3084 | IPHONE XR         | 64      | MANOJ              | 356568105032722   | 2025-08-26 | 11000 |
+|     3086 | IPHONE 12 MINI    | 64      | MANOJ              | 353011110248135   | 2025-08-26 | 15500 |
+|     3068 | IPHONE XR         | 128     | MANOJ              | 356461101882201   | 2025-08-26 |  9000 |
+|     3088 | IPHONE XS         | 64      | KHALID             | 353163102578027   | 2025-08-27 |  9000 |
+|     3078 | OPPO F27 PRO PLUS | 256     | MURTUZA            | 861654073823553   | 2025-08-28 | 14000 |
+|     3077 | REDMI NOTE 10     | 64      | ZISHAN             | 865481053474793   | 2025-08-30 |  4000 |
+|     3090 | IPHONE 13         | 128     | NAZIM BHAI         | 350196698801026   | 2025-08-30 |  6000 |
+|     3091 | IPHONE 13         | 128     | NAZIM BHAI         | 359451183084591   | 2025-08-30 | 23000 |
+|     3031 | REDMI NOTE 11     | 64      | NAZIM BHAI         | 053585050         | 2025-08-30 |  4500 |
++----------+-------------------+---------+--------------------+-------------------+------------+-------+
+
+REPAIR
+------
+
++------------+---------------------+------+
+| DATE       | NAME                | CASH |
++------------+---------------------+------+
+| 2025-08-04 | VIVO DISPLAY CHANGE | 1800 |
+| 2025-08-19 | IPHONE 12 REPAIR    | 1400 |
+| 2025-08-24 | IPAD TOUCH REPAIR   | 3000 |
++------------+---------------------+------+
+
+S_ACCESSORIES
+-------------
+
++------------+----------------------------+------+
+| DATE       | NAME                       | CASH |
++------------+----------------------------+------+
+| 2025-08-06 | PLAY NERGY101 POWERBANK    |  750 |
+| 2025-08-11 | 50 TEMP                    |  400 |
+| 2025-08-11 | FOLD 7 MEMBRANE            |  400 |
+| 2025-08-11 | FOLD 7 SPIGEN COVER        |  700 |
+| 2025-08-20 | APPLE USB C ADAPTOR        | 1000 |
+| 2025-08-20 | APPLE USB C TO LIGHTNING   | 1000 |
+| 2025-08-25 | APPLE AIR PODS SECOND COPY |  500 |
+| 2025-08-25 | APPLE USB C TO LIGHTNING   |  800 |
+| 2025-08-27 | SAMSUNG C TO C             |  500 |
+| 2025-08-27 | SAMSUNG ADAPTER 25W        |  500 |
++------------+----------------------------+------+
+
+
+PENDING REC
+-----------
+
++------------+----------+-----------------------+-------+
+| DATE       | ORDER_ID | NAME                  | CASH  |
++------------+----------+-----------------------+-------+
+| 2025-08-02 |     1628 | NOTHING PHONE 2A PLUS | 12500 |
++------------+----------+-----------------------+-------+
+
+
++--------------------+----------+
+| NAME               | CASH     |
++--------------------+----------+
+|                    |          |
+| PURCHASE_PHONE     | 75500    |
+| P_ACCESSORIES      | 0        |
+| EXPANSES           | 40414    |
+| FUND_SUB           | 99000    |
+| PENDING            | 0        |
+| P_PAYMENT_SEND     | 0        |
+| SALARY             | 0        |
+| REPAIR PARTS       | 3500     |
+| SALE_PHONE         | 257200   |
+| REPAIR             | 6200     |
+| S_ACCESSORIES      | 6550     |
+| FUND_ADD           | 0        |
+| PENDING_REC        | 12500    |
+| P_PAYMENT_DELAY    | 0        |
+| ----------------   | -------- |
+| 2025-08-01 BALANCE | 229430   |
++--------------------+----------+
+  </div>
+
+
+
+  <script>
+    let fontSize = 16;
+
+    function zoomIn() {
+      fontSize += 2;
+      document.getElementById('content').style.fontSize = fontSize + 'px';
+    }
+
+    function zoomOut() {
+      if (fontSize > 8) {
+        fontSize -= 2;
+        document.getElementById('content').style.fontSize = fontSize + 'px';
+      }
+    }
+
+    function resetZoom() {
+      fontSize = 16;
+      document.getElementById('content').style.fontSize = fontSize + 'px';
+    }
+  </script>
+</body>
+</html>
